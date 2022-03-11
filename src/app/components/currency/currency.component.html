@@ -1,0 +1,90 @@
+<mat-card class="item">
+  <div class="header">
+    <h2>{{ currency.name }}</h2>
+
+    <div class="logoWrapper">
+      <p>
+        {{ currency.symbol }}
+      </p>
+      <img alt="{{ currency.name }}" src="{{ currency.logo_url }}" />
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="price">
+      <div class="price underline">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+          class="icon"
+          width="24"
+          height="24"
+        >
+          <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+          <path
+            d="M64 240C46.33 240 32 225.7 32 208C32 190.3 46.33 176 64 176H92.29C121.9 92.11 201.1 32 296 32H320C337.7 32 352 46.33 352 64C352 81.67 337.7 96 320 96H296C238.1 96 187.8 128.4 162.1 176H288C305.7 176 320 190.3 320 208C320 225.7 305.7 240 288 240H144.2C144.1 242.6 144 245.3 144 248V264C144 266.7 144.1 269.4 144.2 272H288C305.7 272 320 286.3 320 304C320 321.7 305.7 336 288 336H162.1C187.8 383.6 238.1 416 296 416H320C337.7 416 352 430.3 352 448C352 465.7 337.7 480 320 480H296C201.1 480 121.9 419.9 92.29 336H64C46.33 336 32 321.7 32 304C32 286.3 46.33 272 64 272H80.15C80.05 269.3 80 266.7 80 264V248C80 245.3 80.05 242.7 80.15 240H64z"
+          />
+        </svg>
+        <p>
+          {{
+            currency.price === ""
+              ? "-"
+              : (currency.price | number: "1.3-3":"en-US-POSI")
+          }}
+        </p>
+      </div>
+
+      <div class="break"></div>
+      <span class="description">Value</span>
+    </div>
+
+    <div class="trend">
+      <div class="trend underline">
+        <svg
+          *ngIf="
+            currency.price !== '' &&
+              (currency['1d'].price_change_pct | positive);
+            else negative
+          "
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 576 512"
+          class="up icon"
+          width="24"
+          height="24"
+        >
+          <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+          <path
+            d="M384 160C366.3 160 352 145.7 352 128C352 110.3 366.3 96 384 96H544C561.7 96 576 110.3 576 128V288C576 305.7 561.7 320 544 320C526.3 320 512 305.7 512 288V205.3L342.6 374.6C330.1 387.1 309.9 387.1 297.4 374.6L191.1 269.3L54.63 406.6C42.13 419.1 21.87 419.1 9.372 406.6C-3.124 394.1-3.124 373.9 9.372 361.4L169.4 201.4C181.9 188.9 202.1 188.9 214.6 201.4L320 306.7L466.7 159.1L384 160z"
+          />
+        </svg>
+
+        <ng-template #negative>
+          <svg
+            *ngIf="currency.price !== ''"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 576 512"
+            class="down icon"
+            width="24"
+            height="24"
+          >
+            <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+            <path
+              d="M466.7 352L320 205.3L214.6 310.6C202.1 323.1 181.9 323.1 169.4 310.6L9.372 150.6C-3.124 138.1-3.124 117.9 9.372 105.4C21.87 92.88 42.13 92.88 54.63 105.4L191.1 242.7L297.4 137.4C309.9 124.9 330.1 124.9 342.6 137.4L512 306.7V223.1C512 206.3 526.3 191.1 544 191.1C561.7 191.1 576 206.3 576 223.1V384C576 401.7 561.7 416 544 416H384C366.3 416 352 401.7 352 384C352 366.3 366.3 352 384 352L466.7 352z"
+            />
+          </svg>
+        </ng-template>
+
+        <p>
+          {{
+            currency["1d"].price_change_pct === ""
+              ? "- %"
+              : (pctToNumber(currency["1d"].price_change_pct)
+                  | number: "1.2-2":"en-US-POSI") + "%"
+          }}
+        </p>
+      </div>
+      <div class="break"></div>
+      <span class="description">1-Day Trend</span>
+    </div>
+  </div>
+</mat-card>

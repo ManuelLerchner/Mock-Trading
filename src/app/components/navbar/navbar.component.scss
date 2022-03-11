@@ -1,0 +1,10 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  box-shadow: 0 2px 5px 2px rgb(27, 22, 22);
+  border-bottom: 1px solid rgb(27, 22, 22);
+  z-index: 200;
+  position: relative;
+}
