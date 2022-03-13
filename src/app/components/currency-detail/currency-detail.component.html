@@ -1,0 +1,105 @@
+<mat-card class="detailCard">
+  <mat-card-title-group>
+    <div mat-card-avatar>
+      <img
+        mat-card-avatar
+        class="logoImage"
+        alt="{{ currency.name }}"
+        src="{{ currency.logo_url }}"
+      />
+    </div>
+    <mat-card-title>{{ currency.name }}</mat-card-title>
+
+    <mat-card-subtitle class="currentValue">
+      {{
+        currency.price === ""
+          ? "- €"
+          : (currency.price | number: "1.4-4":"en-US-POSI") + "€"
+      }}</mat-card-subtitle
+    >
+  </mat-card-title-group>
+
+  <mat-divider [inset]="true" class="spacing"></mat-divider>
+
+  <mat-card-content>
+    <div class="trend">
+      <div class="trendItem" *ngFor="let trendPoint of getTrends()">
+        <div>
+          <app-arrow-up
+            class="arrow"
+            *ngIf="
+              trendPoint.data.price !== '' &&
+                (trendPoint.data.price_change_pct | positive);
+              else negative
+            "
+          ></app-arrow-up>
+
+          <ng-template #negative>
+            <app-arrow-down
+              class="arrow"
+              *ngIf="currency.price !== ''"
+            ></app-arrow-down>
+          </ng-template>
+
+          <p class="percentage">
+            {{
+              trendPoint.data.price_change_pct === ""
+                ? "- %"
+                : (pctToNumber(trendPoint.data.price_change_pct)
+                    | number: "1.2-2":"en-US-POSI") + "%"
+            }}
+          </p>
+        </div>
+        <div class="break"></div>
+        <span class="description underline">{{
+          trendPoint.time + " Trend"
+        }}</span>
+      </div>
+    </div>
+
+    <mat-divider [inset]="true" class="spacing"></mat-divider>
+
+    <form class="inputContainer">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 384 512"
+        class="icon"
+        width="20"
+        height="20"
+      >
+        <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+        <path
+          d="M64 240C46.33 240 32 225.7 32 208C32 190.3 46.33 176 64 176H92.29C121.9 92.11 201.1 32 296 32H320C337.7 32 352 46.33 352 64C352 81.67 337.7 96 320 96H296C238.1 96 187.8 128.4 162.1 176H288C305.7 176 320 190.3 320 208C320 225.7 305.7 240 288 240H144.2C144.1 242.6 144 245.3 144 248V264C144 266.7 144.1 269.4 144.2 272H288C305.7 272 320 286.3 320 304C320 321.7 305.7 336 288 336H162.1C187.8 383.6 238.1 416 296 416H320C337.7 416 352 430.3 352 448C352 465.7 337.7 480 320 480H296C201.1 480 121.9 419.9 92.29 336H64C46.33 336 32 321.7 32 304C32 286.3 46.33 272 64 272H80.15C80.05 269.3 80 266.7 80 264V248C80 245.3 80.05 242.7 80.15 240H64z"
+        />
+      </svg>
+      <input
+        type="number"
+        class="input-s form-control money"
+        placeholder="€"
+        [(ngModel)]="amount"
+        name="amount"
+      />
+
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          class="btn"
+          (click)="onBuy()"
+        >
+          Buy
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          type="button"
+          class="btn"
+          (click)="onSell()"
+        >
+          Sell
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

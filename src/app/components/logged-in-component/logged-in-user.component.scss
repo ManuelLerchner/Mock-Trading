@@ -1,0 +1,48 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+
+  p {
+    margin: 0px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.logout {
+  background: #4d4c4c;
+  cursor: pointer;
+  border-radius: 5px;
+
+  color: White;
+  font-size: 14px;
+  text-align: left;
+
+  display: block;
+  margin: 0 auto;
+
+  padding: 5px;
+
+  transition: all 0.3s ease-in-out;
+}
+
+.logout:hover {
+  background: #5f5f5f;
+}
+
+@media (max-width: 767px) {
+  #name {
+    display: none;
+  }
+}

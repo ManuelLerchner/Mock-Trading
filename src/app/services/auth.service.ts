@@ -21,4 +21,12 @@ export class AuthService {
         console.log(error);
       });
   }
+
+  getUser() {
+    return this.afAuth.user;
+  }
+
+  logout() {
+    return this.afAuth.signOut();
+  }
 }

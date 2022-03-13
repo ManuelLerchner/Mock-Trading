@@ -1,12 +1,23 @@
 <div class="fullheight">
-  <app-navbar></app-navbar>
+  <app-navbar (toggleEvent)="toggleSideBar()"></app-navbar>
 
-  <div class="container">
-    <app-currency
-      *ngFor="let currency of currencyTickers"
-      [currency]="currency"
-      class="card"
-    ></app-currency>
+  <div class="page">
+    <app-sidenav
+      id="overlapOnMobile"
+      class="sideNav"
+      *ngIf="isExpanded"
+      [@inOutAnimation]
+      [isExpanded]="isExpanded"
+      [liveCurrencyTickers]="liveCurrencyTickers"
+      (selectEvent)="onSelect($event)"
+    ></app-sidenav>
+
+    <div class="main">
+      <app-currency-detail
+        *ngIf="selectedCurrency"
+        [currencyName]="selectedCurrency"
+        [liveCurrencyTickers]="liveCurrencyTickers"
+      ></app-currency-detail>
+    </div>
   </div>
 </div>
-

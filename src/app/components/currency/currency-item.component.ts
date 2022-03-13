@@ -1,7 +1,5 @@
 import * as fa from '@fortawesome/free-solid-svg-icons';
 
-import * as ff from '@fortawesome/free-regular-svg-icons';
-
 import {
   Component,
   OnInit,
@@ -15,13 +13,13 @@ import { CurrencyTicker } from 'src/app/models/CurrencyTicker';
 
 @Component({
   selector: 'app-currency',
-  templateUrl: './currency.component.html',
-  styleUrls: ['./currency.component.scss'],
+  templateUrl: './currency-item.component.html',
+  styleUrls: ['./currency-item.component.scss'],
 })
-export class CurrencyComponent implements OnInit {
+export class CurrencyItemComponent implements OnInit {
   @Input() currency!: CurrencyTicker;
-  @Output() buy = new EventEmitter<CurrencyTicker>();
-  @Output() sell = new EventEmitter<CurrencyTicker>();
+
+  @Output() selectedEvent = new EventEmitter<string>();
 
   fa: any = fa;
 
@@ -32,5 +30,9 @@ export class CurrencyComponent implements OnInit {
   pctToNumber(input: string) {
     var numeric = Number(input);
     return numeric * 100;
+  }
+
+  select() {
+    this.selectedEvent.emit(this.currency.name);
   }
 }

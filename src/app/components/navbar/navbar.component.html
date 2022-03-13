@@ -1,10 +1,13 @@
 <mat-toolbar color="primary" class="navbar">
-  <div>
-    <mat-icon>local_fire_department</mat-icon>
-    <span>Mock-Trading</span>
+  <div class="menuButton">
+    <button mat-icon-button (click)="toggleExpaned()" onclick="this.blur()">
+      <mat-icon>menu</mat-icon>
+    </button>
   </div>
 
-  <div>
-    <app-signin></app-signin>
+  <div class="title">
+    <h1><mat-icon id="logo">local_fire_department</mat-icon> Mock-Trading</h1>
   </div>
+
+  <app-signin class="login"></app-signin>
 </mat-toolbar>

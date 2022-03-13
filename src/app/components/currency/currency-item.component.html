@@ -1,4 +1,4 @@
-<mat-card class="item">
+<mat-card class="item" (click)="select()">
   <div class="header">
     <h2>{{ currency.name }}</h2>
 
@@ -40,38 +40,20 @@
 
     <div class="trend">
       <div class="trend underline">
-        <svg
+        <app-arrow-up
+          class="arrow"
           *ngIf="
             currency.price !== '' &&
               (currency['1d'].price_change_pct | positive);
             else negative
           "
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 576 512"
-          class="up icon"
-          width="24"
-          height="24"
-        >
-          <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-          <path
-            d="M384 160C366.3 160 352 145.7 352 128C352 110.3 366.3 96 384 96H544C561.7 96 576 110.3 576 128V288C576 305.7 561.7 320 544 320C526.3 320 512 305.7 512 288V205.3L342.6 374.6C330.1 387.1 309.9 387.1 297.4 374.6L191.1 269.3L54.63 406.6C42.13 419.1 21.87 419.1 9.372 406.6C-3.124 394.1-3.124 373.9 9.372 361.4L169.4 201.4C181.9 188.9 202.1 188.9 214.6 201.4L320 306.7L466.7 159.1L384 160z"
-          />
-        </svg>
+        ></app-arrow-up>
 
         <ng-template #negative>
-          <svg
+          <app-arrow-down
+            class="arrow"
             *ngIf="currency.price !== ''"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 576 512"
-            class="down icon"
-            width="24"
-            height="24"
-          >
-            <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-            <path
-              d="M466.7 352L320 205.3L214.6 310.6C202.1 323.1 181.9 323.1 169.4 310.6L9.372 150.6C-3.124 138.1-3.124 117.9 9.372 105.4C21.87 92.88 42.13 92.88 54.63 105.4L191.1 242.7L297.4 137.4C309.9 124.9 330.1 124.9 342.6 137.4L512 306.7V223.1C512 206.3 526.3 191.1 544 191.1C561.7 191.1 576 206.3 576 223.1V384C576 401.7 561.7 416 544 416H384C366.3 416 352 401.7 352 384C352 366.3 366.3 352 384 352L466.7 352z"
-            />
-          </svg>
+          ></app-arrow-down>
         </ng-template>
 
         <p>

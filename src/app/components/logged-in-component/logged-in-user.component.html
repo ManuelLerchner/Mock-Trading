@@ -1,0 +1,9 @@
+<div class="profile" *ngIf="User">
+  <p id="name">{{ User.displayName }}</p>
+
+  <img class="icon" src="{{ User.photoURL }}" alt="{{ User.displayName }}" />
+
+  <form (ngSubmit)="logout()">
+    <input type="submit" value="Logout" class="logout" />
+  </form>
+</div>

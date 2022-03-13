@@ -3,24 +3,55 @@ import { Firestore } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { DataService } from 'src/app/services/data-service';
 import { CurrencyTicker } from './models/CurrencyTicker';
+import {
+  animate,
+  transition,
+  trigger,
+  style,
+  useAnimation,
+  state,
+  group,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+
+  animations: [
+    trigger('inOutAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(-380px)', width: '0px' }),
+        animate(
+          '750ms',
+          style({ opacity: 1, transform: 'translateX(0px)', width: '380px' })
+        ),
+      ]),
+      transition(':leave', [
+        animate(
+          '750ms',
+          style({ opacity: 0, transform: 'translateX(-380px)', width: '0px' })
+        ),
+      ]),
+    ]),
+  ],
 })
 export class AppComponent {
   title = 'Mock-Trading';
 
   currencyNames: string[] = ['BTC', 'ETH', 'XRP', 'DOGE', 'USDT', 'SOL'];
 
-  currencyTickers!: CurrencyTicker[];
+  selectedCurrency: string = 'Bitcoin';
+
+  liveCurrencyTickers!: CurrencyTicker[];
+
+  isExpanded = true;
 
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
     //Start values
-    this.currencyTickers = [
+    this.liveCurrencyTickers = [
       {
         symbol: 'BTC',
         name: 'Bitcoin',
@@ -32,6 +63,18 @@ export class AppComponent {
           price_change_pct: '',
         },
         '7d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        '30d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        '365d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        ytd: {
           price_change: '',
           price_change_pct: '',
         },
@@ -50,6 +93,18 @@ export class AppComponent {
           price_change: '',
           price_change_pct: '',
         },
+        '30d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        '365d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        ytd: {
+          price_change: '',
+          price_change_pct: '',
+        },
       },
       {
         symbol: 'USDT',
@@ -62,6 +117,18 @@ export class AppComponent {
           price_change_pct: '',
         },
         '7d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        '30d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        '365d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        ytd: {
           price_change: '',
           price_change_pct: '',
         },
@@ -80,6 +147,18 @@ export class AppComponent {
           price_change: '',
           price_change_pct: '',
         },
+        '30d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        '365d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        ytd: {
+          price_change: '',
+          price_change_pct: '',
+        },
       },
       {
         symbol: 'SOL',
@@ -92,6 +171,18 @@ export class AppComponent {
           price_change_pct: '',
         },
         '7d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        '30d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        '365d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        ytd: {
           price_change: '',
           price_change_pct: '',
         },
@@ -110,6 +201,18 @@ export class AppComponent {
           price_change: '',
           price_change_pct: '',
         },
+        '30d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        '365d': {
+          price_change: '',
+          price_change_pct: '',
+        },
+        ytd: {
+          price_change: '',
+          price_change_pct: '',
+        },
       },
     ];
 
@@ -117,13 +220,20 @@ export class AppComponent {
       let data = this.dataService.fetchData(this.currencyNames);
 
       data.subscribe((data) => {
-        this.currencyTickers = data;
-        console.log(this.currencyTickers);
+        this.liveCurrencyTickers = data;
       });
     };
 
     updateData();
+    // console.log(this.liveCurrencyTickers);
+    setInterval(() => updateData(), 1000 * 50);
+  }
 
-    setInterval(() => updateData(), 1000 * 10);
+  toggleSideBar() {
+    this.isExpanded = !this.isExpanded;
+  }
+
+  onSelect(currency: any): void {
+    this.selectedCurrency = currency;
   }
 }

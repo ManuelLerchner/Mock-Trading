@@ -1,0 +1,8 @@
+<div class="sidebar">
+  <app-currency
+    *ngFor="let currency of liveCurrencyTickers"
+    [currency]="currency"
+    class="card"
+    (selectedEvent)="onSelect($event)"
+  ></app-currency>
+</div>
