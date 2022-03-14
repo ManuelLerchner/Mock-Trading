@@ -19,7 +19,7 @@ import {
   styleUrls: ['./app.component.scss'],
 
   animations: [
-    trigger('inOutAnimation', [
+    trigger('slideLeft', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateX(-380px)', width: '0px' }),
         animate(

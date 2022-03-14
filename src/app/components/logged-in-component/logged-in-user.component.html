@@ -1,9 +1,13 @@
-<div class="profile" *ngIf="User">
-  <p id="name">{{ User.displayName }}</p>
+<div class="profile" *ngIf="authService.User">
+  <p id="name">{{ authService.User.displayName }}</p>
 
-  <img class="icon" src="{{ User.photoURL }}" alt="{{ User.displayName }}" />
+  <img
+    class="icon"
+    src="{{ authService.User.photoURL }}"
+    alt="{{ authService.User.displayName }}"
+  />
 
-  <form (ngSubmit)="logout()">
+  <form (ngSubmit)="authService.logout()">
     <input type="submit" value="Logout" class="logout" />
   </form>
 </div>

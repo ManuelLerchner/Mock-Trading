@@ -1,6 +1,6 @@
 <div class="login">
   <div
-    *ngIf="!(authService.getUser() | async)"
+    *ngIf="!(authService.User)"
     class="google-btn formGroup"
     (click)="authService.GoogleAuth()"
   >
@@ -20,6 +20,6 @@
   </div>
 
   <app-logged-in-user
-    *ngIf="authService.getUser() | async"
+    *ngIf="authService.User"
   ></app-logged-in-user>
 </div>

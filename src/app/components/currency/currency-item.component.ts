@@ -1,14 +1,6 @@
 import * as fa from '@fortawesome/free-solid-svg-icons';
 
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  SimpleChanges,
-} from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CurrencyTicker } from 'src/app/models/CurrencyTicker';
 
 @Component({
@@ -18,11 +10,9 @@ import { CurrencyTicker } from 'src/app/models/CurrencyTicker';
 })
 export class CurrencyItemComponent implements OnInit {
   @Input() currency!: CurrencyTicker;
-
   @Output() selectedEvent = new EventEmitter<string>();
 
   fa: any = fa;
-
   currencyTicker!: CurrencyTicker;
 
   ngOnInit(): void {}

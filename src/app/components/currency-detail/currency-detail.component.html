@@ -1,4 +1,4 @@
-<mat-card class="detailCard">
+<mat-card class="detailCard" *ngIf="getSelectedCurrency(); let currency">
   <mat-card-title-group>
     <div mat-card-avatar>
       <img
@@ -23,7 +23,7 @@
 
   <mat-card-content>
     <div class="trend">
-      <div class="trendItem" *ngFor="let trendPoint of getTrends()">
+      <div class="trendItem" *ngFor="let trendPoint of getTrends(currency)">
         <div>
           <app-arrow-up
             class="arrow"
@@ -78,6 +78,8 @@
         placeholder="€"
         [(ngModel)]="amount"
         name="amount"
+        min="0"
+        oninput="validity.valid||(value='');"
       />
 
       <div>
@@ -86,7 +88,7 @@
           color="primary"
           type="button"
           class="btn"
-          (click)="onBuy()"
+          (click)="onBuy(currency)"
         >
           Buy
         </button>
@@ -95,7 +97,7 @@
           color="warn"
           type="button"
           class="btn"
-          (click)="onSell()"
+          (click)="onSell(currency)"
         >
           Sell
         </button>

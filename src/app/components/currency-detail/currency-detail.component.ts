@@ -1,6 +1,6 @@
-import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { CurrencyTicker } from 'src/app/models/CurrencyTicker';
+import { BuyService } from 'src/app/services/buy.service';
 
 @Component({
   selector: 'app-currency-detail',
@@ -13,41 +13,26 @@ export class CurrencyDetailComponent implements OnInit {
 
   amount: number = 500;
 
-  currency!: CurrencyTicker;
-
-  constructor() {}
+  constructor(private buyService: BuyService) {}
 
   ngOnInit(): void {
     this.getSelectedCurrency();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.currency = this.getSelectedCurrency();
-  }
-
-  getSelectedCurrency(): CurrencyTicker {
-    let res = this.liveCurrencyTickers.find(
+  getSelectedCurrency(): CurrencyTicker | undefined {
+    return this.liveCurrencyTickers.find(
       (currency) => currency.name === this.currencyName
     );
+  }
 
-    if (res === undefined) {
-      res = {
-        symbol: '',
-        name: '-',
-        price: '',
-        logo_url: '',
-        '1d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '7d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-      };
-    }
-
-    return res;
+  getTrends(currency: CurrencyTicker) {
+    return [
+      { time: '1-Day', data: currency['1d'] },
+      { time: '7-Day', data: currency['7d'] },
+      { time: '30-Day', data: currency['30d'] },
+      { time: 'YTD', data: currency['ytd'] },
+      { time: '365-Day', data: currency['365d'] },
+    ];
   }
 
   pctToNumber(input: string) {
@@ -55,24 +40,13 @@ export class CurrencyDetailComponent implements OnInit {
     return numeric * 100;
   }
 
-  getTrends() {
-    let data = [
-      { time: '1-Day', data: this.currency['1d'] },
-      { time: '7-Day', data: this.currency['7d'] },
-      { time: '30-Day', data: this.currency['30d'] },
-      { time: 'YTD', data: this.currency['ytd'] },
-      { time: '365-Day', data: this.currency['365d'] },
-    ];
-    return data;
-  }
-
-  onBuy() {
-    console.log(this.amount);
+  onBuy(currency: CurrencyTicker) {
+    this.buyService.trade(currency, this.amount);
     this.amount = 0;
   }
 
-  onSell() {
-    console.log(this.amount);
+  onSell(currency: CurrencyTicker) {
+    this.buyService.trade(currency, -this.amount);
     this.amount = 0;
   }
 }

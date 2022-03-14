@@ -1,0 +1,22 @@
+<mat-card class="detailCard" *ngIf="authService.User" [@slideBottom]>
+  <mat-card-title-group>
+    <div mat-card-avatar></div>
+    <mat-card-title>Your Portfolio</mat-card-title>
+
+    <mat-card-subtitle class="currentValue">
+      {{ authService.User.displayName }}</mat-card-subtitle
+    >
+  </mat-card-title-group>
+
+  <mat-divider [inset]="true" class="spacing"></mat-divider>
+
+  <mat-card-content>
+    <div class="trend">
+      <p *ngFor="let item of portfolio">
+        {{ item.symbol + "  -  " + item.amount }}
+      </p>
+    </div>
+
+    <mat-divider [inset]="true" class="spacing"></mat-divider>
+  </mat-card-content>
+</mat-card>

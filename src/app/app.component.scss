@@ -20,6 +20,9 @@ mat-toolbar > span {
   padding-top: 16px;
   padding-bottom: 16px;
   z-index: 1;
+
+  justify-content: space-between;
+  align-items: center;
 }
 
 .page {
@@ -37,6 +40,13 @@ mat-toolbar > span {
 }
 
 app-currency-detail {
+  width: clamp(200px, 80%, 720px);
+  max-height: 100%;
+
+  filter: drop-shadow(5px 5px 15px rgb(27, 27, 27));
+}
+
+app-portfolio {
   width: clamp(200px, 80%, 720px);
   max-height: 100%;
 

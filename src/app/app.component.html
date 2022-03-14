@@ -6,7 +6,7 @@
       id="overlapOnMobile"
       class="sideNav"
       *ngIf="isExpanded"
-      [@inOutAnimation]
+      [@slideLeft]
       [isExpanded]="isExpanded"
       [liveCurrencyTickers]="liveCurrencyTickers"
       (selectEvent)="onSelect($event)"
@@ -18,6 +18,8 @@
         [currencyName]="selectedCurrency"
         [liveCurrencyTickers]="liveCurrencyTickers"
       ></app-currency-detail>
+
+      <app-portfolio> </app-portfolio>
     </div>
   </div>
 </div>
