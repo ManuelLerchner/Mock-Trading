@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { CurrencyTicker } from 'src/app/models/CurrencyTicker';
 
 @Component({
@@ -10,25 +17,9 @@ export class SidenavComponent implements OnInit {
   constructor() {}
   @Input() liveCurrencyTickers: CurrencyTicker[] = [];
   @Output() selectEvent: EventEmitter<string> = new EventEmitter();
-
-  ngOnInit(): void {}
-
   @Input() isExpanded = true;
-  showSubmenu: boolean = false;
-  isShowing = false;
-  showSubSubMenu: boolean = false;
 
-  mouseenter() {
-    if (!this.isExpanded) {
-      this.isShowing = true;
-    }
-  }
-
-  mouseleave() {
-    if (!this.isExpanded) {
-      this.isShowing = false;
-    }
-  }
+  ngOnInit() {}
 
   onSelect(currency: any): void {
     this.selectEvent.emit(currency);

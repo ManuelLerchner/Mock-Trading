@@ -1,0 +1,7 @@
+<div class="navigation" *ngIf="authService.User">
+  <a class="button" (click)="authService.logout()">
+    <img src="{{ authService.User.photoURL }}" alt="icon" />
+
+    <div class="logout">LOGOUT</div>
+  </a>
+</div>

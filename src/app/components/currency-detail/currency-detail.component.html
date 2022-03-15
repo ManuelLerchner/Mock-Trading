@@ -23,43 +23,23 @@
 
   <mat-card-content>
     <div class="trend">
-      <div class="trendItem" *ngFor="let trendPoint of getTrends(currency)">
-        <div>
-          <app-arrow-up
-            class="arrow"
-            *ngIf="
-              trendPoint.data.price !== '' &&
-                (trendPoint.data.price_change_pct | positive);
-              else negative
-            "
-          ></app-arrow-up>
-
-          <ng-template #negative>
-            <app-arrow-down
-              class="arrow"
-              *ngIf="currency.price !== ''"
-            ></app-arrow-down>
-          </ng-template>
-
-          <p class="percentage">
-            {{
-              trendPoint.data.price_change_pct === ""
-                ? "- %"
-                : (pctToNumber(trendPoint.data.price_change_pct)
-                    | number: "1.2-2":"en-US-POSI") + "%"
-            }}
-          </p>
-        </div>
-        <div class="break"></div>
-        <span class="description underline">{{
-          trendPoint.time + " Trend"
-        }}</span>
-      </div>
+      <app-trend-item
+        *ngFor="let trendPoint of getTrends(currency)"
+        [currency]="currency"
+        [trendPoint]="trendPoint"
+      >
+      </app-trend-item>
     </div>
 
     <mat-divider [inset]="true" class="spacing"></mat-divider>
 
     <form class="inputContainer">
+      <app-trade-response
+        [succesfull]="transactionSuccesfull"
+        [message]="transactionMessage"
+        *ngIf="transactionVissible"
+      >
+      </app-trade-response>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 384 512"
@@ -73,33 +53,35 @@
         />
       </svg>
       <input
-        type="number"
+        type="text"
         class="input-s form-control money"
         placeholder="€"
         [(ngModel)]="amount"
         name="amount"
-        min="0"
-        oninput="validity.valid||(value='');"
+        oninput="this.value = this.value.replace(/[^0-9.,]/g, '').replace(/(\..*)\./g, '$1');"
       />
 
       <div>
         <button
-          mat-raised-button
-          color="primary"
+          class="button button-buy"
           type="button"
-          class="btn"
           (click)="onBuy(currency)"
         >
           Buy
         </button>
         <button
-          mat-raised-button
-          color="warn"
+          class="button button-sell"
           type="button"
-          class="btn"
           (click)="onSell(currency)"
         >
           Sell
+        </button>
+        <button
+          class="button button-sell-all"
+          type="button"
+          (click)="onSellAll(currency)"
+        >
+          Sell All
         </button>
       </div>
     </form>

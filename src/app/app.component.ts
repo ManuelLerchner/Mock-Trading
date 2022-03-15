@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Firestore } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { DataService } from 'src/app/services/data-service';
@@ -12,6 +12,7 @@ import {
   state,
   group,
 } from '@angular/animations';
+import { INITIAL_TICKERS } from './initialTickers';
 
 @Component({
   selector: 'app-root',
@@ -34,6 +35,26 @@ import {
         ),
       ]),
     ]),
+    trigger('replace', [
+      transition('void => *', [animate('0.6s 0.6s ease-out')]),
+      transition('* => void', [animate('0.6s  ease-out')]),
+
+      state(
+        'void',
+        style({
+          opacity: 0,
+          transform: 'translateY(-380px)',
+          height: '0px',
+        })
+      ),
+      state(
+        '*',
+        style({
+          opacity: 1,
+          transform: 'translateY(0px)',
+        })
+      ),
+    ]),
   ],
 })
 export class AppComponent {
@@ -46,175 +67,12 @@ export class AppComponent {
   liveCurrencyTickers!: CurrencyTicker[];
 
   isExpanded = true;
-
+  public innerWidth: any;
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
     //Start values
-    this.liveCurrencyTickers = [
-      {
-        symbol: 'BTC',
-        name: 'Bitcoin',
-        price: '',
-        logo_url:
-          'https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/btc.svg',
-        '1d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '7d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '30d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '365d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        ytd: {
-          price_change: '',
-          price_change_pct: '',
-        },
-      },
-      {
-        symbol: 'ETH',
-        name: 'Ethereum',
-        price: '',
-        logo_url:
-          'https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/eth.svg',
-        '1d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '7d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '30d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '365d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        ytd: {
-          price_change: '',
-          price_change_pct: '',
-        },
-      },
-      {
-        symbol: 'USDT',
-        name: 'Tether',
-        price: '',
-        logo_url:
-          'https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/usdt.svg',
-        '1d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '7d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '30d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '365d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        ytd: {
-          price_change: '',
-          price_change_pct: '',
-        },
-      },
-      {
-        symbol: 'XRP',
-        name: 'XRP',
-        price: '',
-        logo_url:
-          'https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/XRP.svg',
-        '1d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '7d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '30d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '365d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        ytd: {
-          price_change: '',
-          price_change_pct: '',
-        },
-      },
-      {
-        symbol: 'SOL',
-        name: 'SOLANA',
-        price: '',
-        logo_url:
-          'https://nomics-api.s3.us-east-2.amazonaws.com/static/images/currencies/SOL2.jpg',
-        '1d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '7d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '30d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '365d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        ytd: {
-          price_change: '',
-          price_change_pct: '',
-        },
-      },
-      {
-        symbol: 'DOGE',
-        name: 'Dogecoin',
-        price: '',
-        logo_url:
-          'https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/doge.svg',
-        '1d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '7d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '30d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        '365d': {
-          price_change: '',
-          price_change_pct: '',
-        },
-        ytd: {
-          price_change: '',
-          price_change_pct: '',
-        },
-      },
-    ];
+    this.liveCurrencyTickers = INITIAL_TICKERS;
 
     let updateData = () => {
       let data = this.dataService.fetchData(this.currencyNames);
@@ -227,6 +85,9 @@ export class AppComponent {
     updateData();
     // console.log(this.liveCurrencyTickers);
     setInterval(() => updateData(), 1000 * 10);
+
+    this.innerWidth = window.innerWidth;
+    this.checkIfNeedsToBeExpanded();
   }
 
   toggleSideBar() {
@@ -235,5 +96,19 @@ export class AppComponent {
 
   onSelect(currency: any): void {
     this.selectedCurrency = currency;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+    this.checkIfNeedsToBeExpanded();
+  }
+
+  checkIfNeedsToBeExpanded() {
+    if (this.innerWidth < 768) {
+      this.isExpanded = false;
+    } else {
+      this.isExpanded = true;
+    }
   }
 }

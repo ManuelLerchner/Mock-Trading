@@ -11,7 +11,8 @@ export class CurrencyDetailComponent implements OnInit {
   @Input() currencyName: string = '';
   @Input() liveCurrencyTickers: CurrencyTicker[] = [];
 
-  amount: number = 500;
+
+  amount: string = '';
 
   constructor(private buyService: BuyService) {}
 
@@ -35,18 +36,66 @@ export class CurrencyDetailComponent implements OnInit {
     ];
   }
 
-  pctToNumber(input: string) {
-    var numeric = Number(input);
-    return numeric * 100;
+  transactionSuccesfull: boolean = true;
+  transactionMessage: string = '';
+  transactionVissible = false;
+
+  async onBuy(currency: CurrencyTicker) {
+    let value = parseFloat(this.amount.replace(',', '.'));
+    let succ, message: any;
+    if (isNaN(value)) {
+      succ = false;
+      message = 'Amount must be a number';
+    } else {
+      [succ, message] = await this.buyService.buy(currency, value);
+    }
+    this.transactionSuccesfull = succ;
+    this.transactionMessage = message;
+    this.transactionVissible = true;
+
+    setTimeout(() => {
+      this.transactionVissible = false;
+    }, 4000);
+
+    if (succ) {
+      this.amount = '';
+    }
   }
 
-  onBuy(currency: CurrencyTicker) {
-    this.buyService.trade(currency, this.amount);
-    this.amount = 0;
+  async onSell(currency: CurrencyTicker) {
+    let value = parseFloat(this.amount.replace(',', '.'));
+    let succ, message: any;
+    if (isNaN(value)) {
+      succ = false;
+      message = 'Amount must be a number';
+    } else {
+      [succ, message] = await this.buyService.sell(currency, value);
+    }
+    this.transactionSuccesfull = succ;
+    this.transactionMessage = message;
+    this.transactionVissible = true;
+
+    setTimeout(() => {
+      this.transactionVissible = false;
+    }, 4000);
+
+    if (succ) {
+      this.amount = '';
+    }
   }
 
-  onSell(currency: CurrencyTicker) {
-    this.buyService.trade(currency, -this.amount);
-    this.amount = 0;
+  async onSellAll(currency: CurrencyTicker) {
+    let [succ, message] = await this.buyService.sell(currency, Infinity);
+    this.transactionSuccesfull = succ;
+    this.transactionMessage = message;
+    this.transactionVissible = true;
+
+    setTimeout(() => {
+      this.transactionVissible = false;
+    }, 4000);
+
+    if (succ) {
+      this.amount = '';
+    }
   }
 }

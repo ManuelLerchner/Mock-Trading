@@ -33,13 +33,18 @@ import { CurrencyItemComponent } from './components/currency-item/currency-item.
 import { CurrencyDetailComponent } from './components/currency-detail/currency-detail.component';
 import { ArrowUpComponent } from './components/arrow-up/arrow-up.component';
 import { ArrowDownComponent } from './components/arrow-down/arrow-down.component';
-import { LoggedInUserComponent } from './components/logged-in-component/logged-in-user.component';
+import { LoggedInUserComponent } from './components/logged-in-user/logged-in-user.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignInComponent } from './components/signin/signin.component';
 import { ShareItemComponent } from './components/share-item/share-item.component';
 import { StatisticItemComponent } from './components/statistic-item/statistic-item.component';
+import { TradeResponseComponent } from './components/trade-response/trade-response.component';
+import { TrendItemComponent } from './components/trend-item/trend-item.component';
+import { IfChangesDirective } from './components/directives/if-changes.directive';
+import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 registerLocaleData(localeUSA);
 
@@ -58,6 +63,11 @@ registerLocaleData(localeUSA);
     PortfolioComponent,
     ShareItemComponent,
     StatisticItemComponent,
+    TradeResponseComponent,
+    TrendItemComponent,
+    IfChangesDirective,
+    SideMenuComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

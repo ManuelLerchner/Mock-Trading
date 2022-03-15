@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { User as FirebaseUser } from 'firebase/auth';
+import { FieldValue, serverTimestamp, deleteField } from 'firebase/firestore';
 import { Transaction } from '../models/Transaction';
 @Injectable({
   providedIn: 'root',
@@ -8,16 +9,15 @@ import { Transaction } from '../models/Transaction';
 export class DatabaseService {
   constructor(private firestore: AngularFirestore) {}
 
-  async registerUser(user: FirebaseUser | undefined) {
-    if (!user) {
-      return;
-    }
+  registerUser(user: FirebaseUser) {
     this.firestore.collection('users').doc(user.uid).set(
       {
         name: user.displayName,
         email: user.email,
         photoURL: user.photoURL,
         emailVerified: user.emailVerified,
+        uid: user.uid,
+        createdAt: serverTimestamp(),
       },
       { merge: true }
     );
@@ -40,7 +40,7 @@ export class DatabaseService {
     });
   }
 
-  updatePortfolio(user: FirebaseUser, transaction: Transaction) {
+  updatePortfolioWithTransaction(user: FirebaseUser, transaction: Transaction) {
     let portfolios = this.firestore.collection<any>('portfolios');
 
     let portfolio = portfolios.doc(user.uid);
@@ -68,8 +68,19 @@ export class DatabaseService {
     });
   }
 
+  deleteCurrency(user: FirebaseUser, symbol: string) {
+    this.updatePortfolio(user, {
+      [symbol]: deleteField(),
+    });
+  }
+
   updateUser(user: FirebaseUser, update: any) {
     let userRef = this.firestore.collection('users').doc(user.uid).ref;
+    userRef.set(update, { merge: true });
+  }
+
+  updatePortfolio(user: FirebaseUser, update: any) {
+    let userRef = this.firestore.collection('portfolios').doc(user.uid).ref;
     userRef.set(update, { merge: true });
   }
 

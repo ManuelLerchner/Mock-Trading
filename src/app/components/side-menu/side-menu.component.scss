@@ -1,0 +1,22 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+
+  border-radius: 32px;
+  padding: 8px 8px 8px 8px;
+}
+
+button {
+  margin-top: 16px;
+  margin-bottom: 16px;
+
+  filter: drop-shadow(2px 2px 3px rgba(27, 27, 27, 0.575));
+  transition: all 0.1s ease-out;
+}
+
+button:hover {
+  transform: scale(1.1);
+}

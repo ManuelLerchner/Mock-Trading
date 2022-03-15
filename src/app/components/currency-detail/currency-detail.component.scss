@@ -18,48 +18,7 @@
   justify-content: space-around;
   flex-wrap: wrap;
   flex-direction: row;
-}
-
-.trendItem {
-  margin-left: 4px;
-  margin-right: 4px;
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.underline {
-  padding-top: 5px;
-  border-top: 0.5px solid rgba(182, 181, 181, 0.349);
-}
-
-.break {
-  flex-basis: 100%;
-  height: 0;
-}
-
-.center-align {
-  text-align: center;
-}
-
-.description {
-  margin: 2px;
-  margin-top: 4px;
-  font-size: 13px;
-  font-weight: 550;
-}
-
-.percentage {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.currentValue {
-  font-size: 18px;
-  font-weight: 500;
-  padding-top: 10px;
-  font-weight: 500;
+  margin-bottom: 12px;
 }
 
 .inputContainer {
@@ -97,10 +56,6 @@ input[type="number"] {
   padding: 0px;
 }
 
-button {
-  margin-left: 10px;
-}
-
 .spacing {
   padding-top: 5px !important;
   padding-bottom: 20px !important;
@@ -118,4 +73,59 @@ h3 {
 
 .arrow {
   filter: drop-shadow(0px 0px 2px rgba(53, 53, 53, 0.5));
+}
+
+button {
+  margin-left: 10px;
+  border: 0;
+  border-radius: 12px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow 0.2s ease-in-out;
+
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.button-sell-all {
+  background: linear-gradient(to bottom right, #d1082d, #ff5521);
+}
+
+.button-sell-all:not([disabled]):focus,
+.button-sell-all:not([disabled]):hover {
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+    -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+.button-sell {
+  background: linear-gradient(to bottom right, #f56e39, #fba80c);
+}
+
+.button-sell:not([disabled]):focus,
+.button-sell:not([disabled]):hover {
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+    -0.125rem -0.125rem 1rem rgba(239, 200, 71, 0.5),
+    0.125rem 0.125rem 1rem rgba(231, 95, 11, 0.5);
+}
+
+.button-buy {
+  background: linear-gradient(to bottom right, #6e47ef, #5a65ff);
+}
+
+.button-buy:not([disabled]):focus,
+.button-buy:not([disabled]):hover {
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+    -0.125rem -0.125rem 1rem rgba(71, 116, 239, 0.5),
+    0.125rem 0.125rem 1rem rgba(115, 90, 255, 0.5);
 }

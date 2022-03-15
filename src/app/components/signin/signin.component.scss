@@ -11,8 +11,9 @@ $button-active-blue: #1669f2;
   border-radius: 2px;
   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
+  margin-right: 12px;
 
   .google-icon-wrapper {
     width: 40px;
@@ -53,8 +54,10 @@ $button-active-blue: #1669f2;
 .login {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  padding-right: 10px;
+  justify-content: right;
+  align-items: center;
+
+  height: 64px;
 }
 
 .googleImage {
@@ -64,4 +67,8 @@ $button-active-blue: #1669f2;
 
 .googleText {
   text-transform: none;
+}
+
+app-logged-in-user {
+  height: 100%;
 }

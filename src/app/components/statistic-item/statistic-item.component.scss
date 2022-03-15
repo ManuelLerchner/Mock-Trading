@@ -1,29 +1,33 @@
 div {
   padding-left: 4px;
-  padding-right: 4px;
   margin-left: 4px;
-  margin-right: 4px;
+  margin: 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: all 0.1s ease-out;
 }
 
 .title {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 450;
   font-style: oblique;
   margin: 0px;
 }
 
+.valueBox {
+  border-bottom: 1px solid #46464663;
+}
+
 .value {
   margin: 0px;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 500;
   padding-top: 4px;
   padding-bottom: 8px;
 
-  border-bottom: 1px solid #46464663;
+  border-radius: 5px;
 }
 
 .icon {
@@ -32,4 +36,54 @@ div {
   color: #3a3644;
 }
 
+div:hover {
+  transform: scale(1.1);
+}
 
+.increase {
+  animation: fadeOutGreen 5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.decrease {
+  animation: fadeOutRed 5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes fadeOutRed {
+  0% {
+    color: black;
+  }
+
+  20% {
+    color: #ff5252;
+    font-weight: 500;
+  }
+
+  80% {
+    color: #ff5252;
+    font-weight: 500;
+  }
+
+  100% {
+    color: black;
+  }
+}
+
+@keyframes fadeOutGreen {
+  0% {
+    color: black;
+  }
+
+  20% {
+    color: #00c853;
+    font-weight: 500;
+  }
+
+  80% {
+    color: #00c853;
+    font-weight: 500;
+  }
+
+  100% {
+    color: black;
+  }
+}

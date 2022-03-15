@@ -1,0 +1,30 @@
+<div class="trendItem" >
+  <div>
+    <app-arrow-up
+      class="arrow"
+      *ngIf="
+        trendPoint.data.price !== '' &&
+          (trendPoint.data.price_change_pct | positive);
+        else negative
+      "
+    ></app-arrow-up>
+
+    <ng-template #negative>
+      <app-arrow-down
+        class="arrow"
+        *ngIf="currency.price !== ''"
+      ></app-arrow-down>
+    </ng-template>
+
+    <p class="percentage">
+      {{
+        trendPoint.data.price_change_pct === ""
+          ? "- %"
+          : (pctToNumber(trendPoint.data.price_change_pct)
+              | number: "1.2-2":"en-US-POSI") + "%"
+      }}
+    </p>
+  </div>
+  <div class="break"></div>
+  <span class="description underline">{{ trendPoint.time + " Trend" }}</span>
+</div>

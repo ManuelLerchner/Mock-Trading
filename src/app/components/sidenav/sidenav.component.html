@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="sidebar" *ngIf="isExpanded">
   <app-currency
     *ngFor="let currency of liveCurrencyTickers"
     [currency]="currency"

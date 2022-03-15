@@ -10,7 +10,7 @@
 .share {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   flex-direction: row;
   margin-top: 8px !important;
@@ -41,11 +41,12 @@
   border-radius: 50%;
   object-fit: contain;
   filter: drop-shadow(2px 2px 3px rgb(27, 27, 27));
+  font-size: 12px;
 }
 
 .titleGroup {
   margin-top: 8px;
-  margin-bottom: 14px;
+  margin-bottom: 6px;
 }
 
 .title {
@@ -59,7 +60,6 @@
 
   align-items: center;
   justify-content: space-evenly;
-  padding-top: 10px;
-  margin-top: 12px;
+
   width: 100%;
 }

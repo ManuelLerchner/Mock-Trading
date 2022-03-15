@@ -8,7 +8,7 @@
       <img
         class="icon"
         src="{{ authService.User.photoURL }}"
-        alt="{{ authService.User.displayName }}"
+        alt="icon"
       />
     </div>
   </mat-card-title-group>
@@ -21,6 +21,7 @@
         *ngFor="let item of portfolio"
         [item]="item"
         [liveCurrencyTickers]="liveCurrencyTickers"
+        (selectedCurrencyEvent)="selectedHandler($event)"
       >
       </app-share-item>
     </div>

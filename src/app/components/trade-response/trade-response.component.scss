@@ -1,0 +1,19 @@
+p {
+  margin: 0;
+  padding: 5px;
+}
+
+div {
+  border-radius: 10px;
+  margin-right: 20px;
+
+  filter: drop-shadow(1px 1px 2px rgba(47, 47, 47, 0.623));
+}
+
+.succ {
+  background-color: #4ff84f;
+}
+
+.err {
+  background-color: #f13838;
+}

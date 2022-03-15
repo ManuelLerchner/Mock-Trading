@@ -1,4 +1,4 @@
-<div class="item">
+<div class="item" (click)="onClick()">
   <div class="logoWrapper">
     <p>
       {{ getFullName() }}
@@ -15,7 +15,7 @@
         {{ item.symbol }}
       </td>
     </tr>
-    <tr class="last">
+    <tr [ngClass]="[change, 'last']">
       <th>{{ getCurrentPrice() | number: "1.1-1":"en-US-POSI" }}</th>
       <td>EUR</td>
     </tr>

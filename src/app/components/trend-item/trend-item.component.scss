@@ -1,0 +1,47 @@
+.trendItem {
+  margin-left: 4px;
+  margin-right: 4px;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  transition: all 0.1s ease-out;
+}
+
+.trendItem:hover {
+  transform: scale(1.1);
+}
+
+.underline {
+  padding-top: 5px;
+  border-top: 0.5px solid rgba(182, 181, 181, 0.349);
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.center-align {
+  text-align: center;
+}
+
+.description {
+  margin: 2px;
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.percentage {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0px;
+}
+
+.currentValue {
+  font-size: 18px;
+  font-weight: 500;
+  padding-top: 10px;
+  font-weight: 500;
+}

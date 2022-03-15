@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { animate, style, trigger, transition } from '@angular/animations';
@@ -26,6 +33,7 @@ import * as fa from '@fortawesome/free-solid-svg-icons';
 })
 export class PortfolioComponent implements OnInit {
   @Input() liveCurrencyTickers!: CurrencyTicker[];
+  @Output() selectedEvent = new EventEmitter<string>();
 
   portfolio: PortfolioItem[] = [];
   portfolioUnsubscribeFunction: any = null;
@@ -159,5 +167,9 @@ export class PortfolioComponent implements OnInit {
 
   calculateTotalGain() {
     return 100 * (this.calculateUserMoney() / this.userStartMoney - 1);
+  }
+
+  selectedHandler(currency: string) {
+    this.selectedEvent.emit(currency);
   }
 }

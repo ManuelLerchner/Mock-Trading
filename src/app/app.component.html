@@ -14,13 +14,23 @@
 
     <div class="main">
       <app-currency-detail
-        *ngIf="selectedCurrency"
+        *ifChanges="selectedCurrency"
+        [@replace]
         [currencyName]="selectedCurrency"
         [liveCurrencyTickers]="liveCurrencyTickers"
       ></app-currency-detail>
 
-      <app-portfolio [liveCurrencyTickers]="liveCurrencyTickers">
+      <app-portfolio
+        [liveCurrencyTickers]="liveCurrencyTickers"
+        (selectedEvent)="onSelect($event)"
+      >
       </app-portfolio>
+    </div>
+
+    <div class="side-menu">
+      <app-side-menu></app-side-menu>
     </div>
   </div>
 </div>
+
+<app-footer></app-footer>

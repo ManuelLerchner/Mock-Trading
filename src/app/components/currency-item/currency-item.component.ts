@@ -13,7 +13,6 @@ export class CurrencyItemComponent implements OnInit {
   @Output() selectedEvent = new EventEmitter<string>();
 
   fa: any = fa;
-  currencyTicker!: CurrencyTicker;
 
   ngOnInit(): void {}
 
