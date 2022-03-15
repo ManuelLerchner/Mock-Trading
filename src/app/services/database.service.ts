@@ -8,13 +8,19 @@ import { Transaction } from '../models/Transaction';
 export class DatabaseService {
   constructor(private firestore: AngularFirestore) {}
 
-  registerUser(user: FirebaseUser): void {
-    this.firestore.collection('users').doc(user.uid).update({
-      name: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-    });
+  async registerUser(user: FirebaseUser | undefined) {
+    if (!user) {
+      return;
+    }
+    this.firestore.collection('users').doc(user.uid).set(
+      {
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        emailVerified: user.emailVerified,
+      },
+      { merge: true }
+    );
 
     this.initializeMoney(user);
   }
@@ -27,7 +33,8 @@ export class DatabaseService {
         let data: any = doc.data();
 
         if (!data['money']) {
-          docRef.update({ money: 10000 });
+          const startMoney = 10000;
+          docRef.update({ money: startMoney, startMoney: startMoney });
         }
       }
     });
@@ -40,17 +47,37 @@ export class DatabaseService {
     let symbol = transaction.symbol;
 
     portfolio.get().subscribe((doc) => {
-      let oldAmount = doc.data()[symbol] | 0;
-      let newAmount = oldAmount + transaction.amount;
-
+      let data = doc.data();
       let update: any = {};
-      update[symbol] = newAmount;
 
-      portfolio.update(update);
+      if (data) {
+        let oldAmount = data[symbol];
+
+        if (!oldAmount) {
+          oldAmount = 0;
+        }
+
+        let newAmount = oldAmount + transaction.amount;
+
+        update[symbol] = newAmount;
+      } else {
+        update[symbol] = transaction.amount;
+      }
+
+      portfolio.set(update, { merge: true });
     });
+  }
+
+  updateUser(user: FirebaseUser, update: any) {
+    let userRef = this.firestore.collection('users').doc(user.uid).ref;
+    userRef.set(update, { merge: true });
   }
 
   getCurrentPortfolio(user: FirebaseUser) {
     return this.firestore.collection('portfolios').doc(user.uid).ref;
+  }
+
+  getCurrentUser(user: FirebaseUser) {
+    return this.firestore.collection('users').doc(user.uid).ref;
   }
 }

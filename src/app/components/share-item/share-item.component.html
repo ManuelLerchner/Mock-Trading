@@ -1,0 +1,23 @@
+<div class="item">
+  <div class="logoWrapper">
+    <p>
+      {{ getFullName() }}
+    </p>
+    <img alt="{{ item.symbol }}" src="{{ getImageUrl() }}" />
+  </div>
+
+  <table>
+    <tr>
+      <th>
+        {{ item.amount | number: "1.1-3":"en-US-POSI" }}
+      </th>
+      <td>
+        {{ item.symbol }}
+      </td>
+    </tr>
+    <tr class="last">
+      <th>{{ getCurrentPrice() | number: "1.1-1":"en-US-POSI" }}</th>
+      <td>EUR</td>
+    </tr>
+  </table>
+</div>

@@ -40,14 +40,15 @@ mat-toolbar > span {
 }
 
 app-currency-detail {
-  width: clamp(200px, 80%, 720px);
+  width: clamp(200px, 80%, 780px);
   max-height: 100%;
 
   filter: drop-shadow(5px 5px 15px rgb(27, 27, 27));
+  margin-bottom: 10px;
 }
 
 app-portfolio {
-  width: clamp(200px, 80%, 720px);
+  width: clamp(200px, 80%, 780px);
   max-height: 100%;
 
   filter: drop-shadow(5px 5px 15px rgb(27, 27, 27));

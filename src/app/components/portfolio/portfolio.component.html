@@ -1,22 +1,61 @@
 <mat-card class="detailCard" *ngIf="authService.User" [@slideBottom]>
-  <mat-card-title-group>
-    <div mat-card-avatar></div>
-    <mat-card-title>Your Portfolio</mat-card-title>
+  <mat-card-title-group class="titleGroup">
+    <h1 class="title">
+      {{ authService.User.displayName + "'s Portfolio" }}
+    </h1>
 
-    <mat-card-subtitle class="currentValue">
-      {{ authService.User.displayName }}</mat-card-subtitle
-    >
+    <div mat-card-avatar>
+      <img
+        class="icon"
+        src="{{ authService.User.photoURL }}"
+        alt="{{ authService.User.displayName }}"
+      />
+    </div>
   </mat-card-title-group>
 
   <mat-divider [inset]="true" class="spacing"></mat-divider>
 
   <mat-card-content>
-    <div class="trend">
-      <p *ngFor="let item of portfolio">
-        {{ item.symbol + "  -  " + item.amount }}
-      </p>
+    <div class="share">
+      <app-share-item
+        *ngFor="let item of portfolio"
+        [item]="item"
+        [liveCurrencyTickers]="liveCurrencyTickers"
+      >
+      </app-share-item>
     </div>
-
     <mat-divider [inset]="true" class="spacing"></mat-divider>
+
+    <div class="overview">
+      <app-statistic-item
+        [title]="'Portfolio-Value '"
+        [value]="calculateTotalValue()"
+        [icon]="fa.faWallet"
+        [unit]="'€'"
+      >
+      </app-statistic-item>
+
+      <app-statistic-item
+        [title]="'Money'"
+        [value]="calculateUserMoney()"
+        [icon]="fa.faCoins"
+        [unit]="'€'"
+      ></app-statistic-item>
+
+      <app-statistic-item
+        [title]="'Net-Worth'"
+        [value]="calculateNetWorth()"
+        [icon]="fa.faHandHoldingUsd"
+        [unit]="'€'"
+      >
+      </app-statistic-item>
+
+      <app-statistic-item
+        [title]="'Total-Gain'"
+        [value]="calculateTotalGain()"
+        [icon]="fa.faWaveSquare"
+        [unit]="'%'"
+      ></app-statistic-item>
+    </div>
   </mat-card-content>
 </mat-card>

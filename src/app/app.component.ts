@@ -226,7 +226,7 @@ export class AppComponent {
 
     updateData();
     // console.log(this.liveCurrencyTickers);
-    setInterval(() => updateData(), 1000 * 50);
+    setInterval(() => updateData(), 1000 * 10);
   }
 
   toggleSideBar() {

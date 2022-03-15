@@ -30,7 +30,7 @@ export class CurrencyDetailComponent implements OnInit {
       { time: '1-Day', data: currency['1d'] },
       { time: '7-Day', data: currency['7d'] },
       { time: '30-Day', data: currency['30d'] },
-      { time: 'YTD', data: currency['ytd'] },
+      // { time: 'YTD', data: currency['ytd'] },
       { time: '365-Day', data: currency['365d'] },
     ];
   }

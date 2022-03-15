@@ -29,7 +29,7 @@ import { PositivePipe } from './pipes/positive.pipe';
 import { AuthService } from './services/auth.service';
 
 import { AppComponent } from './app.component';
-import { CurrencyItemComponent } from './components/currency/currency-item.component';
+import { CurrencyItemComponent } from './components/currency-item/currency-item.component';
 import { CurrencyDetailComponent } from './components/currency-detail/currency-detail.component';
 import { ArrowUpComponent } from './components/arrow-up/arrow-up.component';
 import { ArrowDownComponent } from './components/arrow-down/arrow-down.component';
@@ -38,6 +38,8 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignInComponent } from './components/signin/signin.component';
+import { ShareItemComponent } from './components/share-item/share-item.component';
+import { StatisticItemComponent } from './components/statistic-item/statistic-item.component';
 
 registerLocaleData(localeUSA);
 
@@ -54,6 +56,8 @@ registerLocaleData(localeUSA);
     LoggedInUserComponent,
     SidenavComponent,
     PortfolioComponent,
+    ShareItemComponent,
+    StatisticItemComponent,
   ],
   imports: [
     BrowserModule,

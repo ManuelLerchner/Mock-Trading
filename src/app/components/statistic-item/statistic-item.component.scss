@@ -1,0 +1,35 @@
+div {
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-left: 4px;
+  margin-right: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 450;
+  font-style: oblique;
+  margin: 0px;
+}
+
+.value {
+  margin: 0px;
+  font-size: 15px;
+  font-weight: 500;
+  padding-top: 4px;
+  padding-bottom: 8px;
+
+  border-bottom: 1px solid #46464663;
+}
+
+.icon {
+  margin-right: 8px;
+  font-size: 18px;
+  color: #3a3644;
+}
+
+

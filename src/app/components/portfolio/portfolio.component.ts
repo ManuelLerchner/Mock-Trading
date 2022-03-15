@@ -1,10 +1,12 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { animate, style, trigger, transition } from '@angular/animations';
 import { DatabaseService } from 'src/app/services/database.service';
 import { User as FirebaseUser } from 'firebase/auth';
 import { PortfolioItem } from 'src/app/models/PortfolioItem';
+import { CurrencyTicker } from 'src/app/models/CurrencyTicker';
+import * as fa from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-portfolio',
@@ -23,13 +25,20 @@ import { PortfolioItem } from 'src/app/models/PortfolioItem';
   ],
 })
 export class PortfolioComponent implements OnInit {
+  @Input() liveCurrencyTickers!: CurrencyTicker[];
+
+  portfolio: PortfolioItem[] = [];
+  portfolioUnsubscribeFunction: any = null;
+  userUnsubscribeFunction: any = null;
+  fa: any = fa;
+
   constructor(
     public authService: AuthService,
     public databaseService: DatabaseService
   ) {}
 
-  portfolio: PortfolioItem[] = [];
-  unsubscribeFunction: any = null;
+  userMoney: number = 0;
+  userStartMoney: number = 0;
 
   ngOnInit() {
     this.authService.auth.onAuthStateChanged((user) => {
@@ -38,36 +47,117 @@ export class PortfolioComponent implements OnInit {
           user as FirebaseUser
         );
 
+        let userRef = this.databaseService.getCurrentUser(user as FirebaseUser);
+
+        userRef.get().then((snapshot: any) => {
+          let data = snapshot.data();
+          this.userMoney = data.money;
+          this.userStartMoney = data.startMoney;
+        });
+
+        this.userUnsubscribeFunction = userRef.onSnapshot((snapshot: any) => {
+          let data = snapshot.data();
+          this.userMoney = data.money;
+          this.userStartMoney = data.startMoney;
+        });
+
         portRef.get().then((snapshot: any) => {
           let data = snapshot.data();
           this.portfolio = this.unpackData(data);
+          this.sortPortfolio();
         });
 
-        this.unsubscribeFunction = portRef.onSnapshot((snapshot: any) => {
-          let data = snapshot.data();
-          this.portfolio = this.unpackData(data);
-        });
+        this.portfolioUnsubscribeFunction = portRef.onSnapshot(
+          (snapshot: any) => {
+            let data = snapshot.data();
+            this.portfolio = this.unpackData(data);
+            this.sortPortfolio();
+          }
+        );
       } else {
-        if (this.unsubscribeFunction) {
-          this.unsubscribeFunction();
+        if (this.portfolioUnsubscribeFunction) {
+          this.portfolioUnsubscribeFunction();
+        }
+        if (this.userUnsubscribeFunction) {
+          this.userUnsubscribeFunction();
         }
       }
     });
+
+    let sortFirstTimeOut = setInterval(() => {
+      this.sortPortfolio();
+
+      if (this.getCurrency('BTC').price !== '') {
+        clearInterval(sortFirstTimeOut);
+      }
+    }, 1000);
+
+    setInterval(() => {
+      if (this.authService.User) {
+        this.databaseService.updateUser(this.authService.User, {
+          netWorth: this.calculateNetWorth(),
+        });
+      }
+    }, 5000);
   }
 
   unpackData(data: any) {
-    return Object.entries(data).map(
-      ([symbol, amount]) =>
-        ({
-          symbol,
-          amount,
-        } as PortfolioItem)
+    if (data) {
+      return Object.entries(data).map(
+        ([symbol, amount]) =>
+          ({
+            symbol,
+            amount,
+          } as PortfolioItem)
+      );
+    }
+
+    return [];
+  }
+
+  sortPortfolio() {
+    this.portfolio = this.portfolio.sort((a, b) => this.valueComparator(a, b));
+  }
+
+  valueComparator(a: PortfolioItem, b: PortfolioItem): number {
+    return (
+      parseFloat(this.getCurrency(b.symbol).price) * b.amount -
+      parseFloat(this.getCurrency(a.symbol).price) * a.amount
     );
   }
 
   ngOnDestroy() {
-    if (this.unsubscribeFunction) {
-      this.unsubscribeFunction();
+    if (this.portfolioUnsubscribeFunction) {
+      this.portfolioUnsubscribeFunction();
     }
+    if (this.userUnsubscribeFunction) {
+      this.userUnsubscribeFunction();
+    }
+  }
+
+  getCurrency(symbol: string) {
+    return this.liveCurrencyTickers.find(
+      (currency: CurrencyTicker) => currency.symbol === symbol
+    ) as CurrencyTicker;
+  }
+
+  calculateTotalValue() {
+    return this.portfolio.reduce(
+      (acc, curr) =>
+        acc + curr.amount * parseFloat(this.getCurrency(curr.symbol).price),
+      0
+    );
+  }
+
+  calculateNetWorth() {
+    return this.userMoney + this.calculateTotalValue();
+  }
+
+  calculateUserMoney() {
+    return this.userMoney;
+  }
+
+  calculateTotalGain() {
+    return 100 * (this.calculateUserMoney() / this.userStartMoney - 1);
   }
 }

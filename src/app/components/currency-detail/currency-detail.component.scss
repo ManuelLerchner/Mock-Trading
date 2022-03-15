@@ -8,6 +8,7 @@
 .logoImage {
   height: 100%;
   width: 100%;
+  filter: drop-shadow(3px 3px 5px rgb(27, 27, 27));
 }
 
 .trend {
@@ -20,7 +21,6 @@
 }
 
 .trendItem {
-  padding: 8px;
   margin-left: 4px;
   margin-right: 4px;
 
@@ -68,7 +68,7 @@
 
   align-items: center;
   justify-content: center;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .money {
