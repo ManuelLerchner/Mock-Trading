@@ -1,7 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { Firestore } from 'firebase/firestore';
 import { Observable } from 'rxjs';
-import { DataService } from 'src/app/services/data-service';
+import { CryptoDataService } from 'src/app/services/crypto-data-service';
 import { CurrencyTicker } from './models/CurrencyTicker';
 import {
   animate,
