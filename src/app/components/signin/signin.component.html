@@ -1,25 +1,21 @@
 <div class="login">
   <div
-    *ngIf="!(authService.User)"
+    *ngIf="!authService.User"
     class="google-btn formGroup"
     (click)="authService.GoogleAuth()"
   >
     <div class="col s12 m6 offset-m3 center-align">
-      <a class="oauth-container btn darken-4 white black-text googleText">
-        <div class="left">
-          <img
-            width="20px"
-            class="googleImage"
-            alt="Google sign-in"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
-          />
-        </div>
-        Login with Google
+      <a class="btn white black-text oathwrapper">
+        <img
+          class="googleImage"
+          alt="Google sign-in"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+        />
+
+        <p class="text">Login with Google</p>
       </a>
     </div>
   </div>
 
-  <app-logged-in-user
-    *ngIf="authService.User"
-  ></app-logged-in-user>
+  <app-logged-in-user *ngIf="authService.User"></app-logged-in-user>
 </div>

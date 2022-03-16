@@ -19,6 +19,7 @@ mat-toolbar > span {
 
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .page {
@@ -31,7 +32,7 @@ mat-toolbar > span {
 }
 
 .sideNav {
-  height: calc(100% - 0px);
+  height: 100%;
   z-index: 2;
 }
 
@@ -41,18 +42,19 @@ mat-toolbar > span {
   align-items: center;
   justify-content: center;
   position: relative;
+  height: 100%;
 }
 
 app-currency-detail {
-  width: clamp(400px, 80%, 780px);
+  width: clamp(350px, 80%, 780px);
   max-height: 100%;
 
   filter: drop-shadow(5px 5px 15px rgb(27, 27, 27));
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 app-portfolio {
-  width: clamp(400px, 80%, 780px);
+  width: clamp(350px, 80%, 780px);
   max-height: 100%;
 
   filter: drop-shadow(5px 5px 15px rgb(27, 27, 27));
@@ -60,7 +62,7 @@ app-portfolio {
 
 app-sidenav {
   width: clamp(320px, 35%, 480px);
-  max-height: 100%;
+  // height: 100%;
 }
 
 app-side-menu {
@@ -69,13 +71,17 @@ app-side-menu {
 
 @media (max-width: 767px) {
   .sideNav {
-    position: fixed;
-    top: 56px;
+    position: absolute;
     left: 0px;
+    top: 0px;
+    height: 100%;
+  }
+  .page {
+    position: relative;
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 550px) {
   .side-menu {
     display: none;
   }

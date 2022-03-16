@@ -129,3 +129,9 @@ button {
     -0.125rem -0.125rem 1rem rgba(71, 116, 239, 0.5),
     0.125rem 0.125rem 1rem rgba(115, 90, 255, 0.5);
 }
+
+@media (max-width: 500px) {
+  .icon {
+    display: none;
+  }
+}

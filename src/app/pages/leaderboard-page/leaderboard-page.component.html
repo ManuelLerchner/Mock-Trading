@@ -12,6 +12,9 @@
         [profile]="prf"
         style="grid-area: p1"
       ></app-leaderboard-item>
+      <p *ngIf="!getProfile(num)">
+        {{ num }}
+      </p>
     </div>
   </div>
 </div>
