@@ -1,15 +1,15 @@
-<mat-card class="detailCard" *ngIf="authService.User" [@slideBottom]>
+<mat-card
+  class="detailCard"
+  *ngIf="authService.User"
+  [@slideBottom]
+>
   <mat-card-title-group class="titleGroup">
     <h1 class="title">
       {{ authService.User.displayName + "'s Portfolio" }}
     </h1>
 
     <div mat-card-avatar>
-      <img
-        class="icon"
-        src="{{ authService.User.photoURL }}"
-        alt="icon"
-      />
+      <img class="icon" src="{{ authService.User.photoURL }}" alt="icon" />
     </div>
   </mat-card-title-group>
 

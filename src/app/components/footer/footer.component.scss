@@ -2,7 +2,6 @@
   background-color: rgb(73, 93, 204);
   color: white;
   text-align: center;
-  height: 280px;
   width: 100%;
   box-shadow: 0 -2px 5px 2px rgb(27, 22, 22);
   position: relative;
@@ -26,8 +25,10 @@
     font-weight: 460;
   }
 
-  line-height: 2em;
+  line-height: 1.5em;
   margin: 0px;
+
+  padding: 10px;
 }
 
 .copyright {

@@ -1,0 +1,32 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+
+  height: 100%;
+  width: 100%;
+  margin-top: 5px;
+}
+
+img {
+  width: clamp(60px, 50%, 90px);
+  border-radius: 50%;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 500;
+
+  padding: 5px;
+
+  margin-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #46464663;
+  text-align: center;
+}
+
+.money {
+  font-size: 22px;
+  font-weight: 550;
+}

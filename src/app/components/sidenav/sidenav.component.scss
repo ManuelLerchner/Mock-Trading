@@ -19,9 +19,9 @@
   position: relative;
 
   background: rgba(85, 85, 85, 0.692);
-  -webkit-backdrop-filter: "blur(10px)";
-  backdrop-filter: blur(4px);
+
   -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
 .card {

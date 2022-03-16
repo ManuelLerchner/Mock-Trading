@@ -1,0 +1,32 @@
+<trade-app-navbar (toggleEvent)="toggleSideBar()"></trade-app-navbar>
+
+<div class="page">
+  <app-sidenav
+    id="overlapOnMobile"
+    class="sideNav"
+    *ngIf="isExpanded && liveCurrencyTickers.length > 0"
+    [@slideLeft]
+    [isExpanded]="isExpanded"
+    [liveCurrencyTickers]="liveCurrencyTickers"
+    (selectEvent)="onSelect($event)"
+  ></app-sidenav>
+
+  <div class="main">
+    <app-currency-detail
+      *ifChanges="selectedCurrency"
+      [@replace]
+      [currencyName]="selectedCurrency"
+      [liveCurrencyTickers]="liveCurrencyTickers"
+    ></app-currency-detail>
+
+    <app-portfolio
+      [liveCurrencyTickers]="liveCurrencyTickers"
+      (selectedEvent)="onSelect($event)"
+    >
+    </app-portfolio>
+  </div>
+
+  <div class="side-menu">
+    <app-side-menu></app-side-menu>
+  </div>
+</div>

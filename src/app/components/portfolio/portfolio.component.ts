@@ -32,7 +32,7 @@ import * as fa from '@fortawesome/free-solid-svg-icons';
   ],
 })
 export class PortfolioComponent implements OnInit {
-  @Input() liveCurrencyTickers!: CurrencyTicker[];
+  @Input() liveCurrencyTickers: CurrencyTicker[] = [];
   @Output() selectedEvent = new EventEmitter<string>();
 
   portfolio: PortfolioItem[] = [];
@@ -95,7 +95,9 @@ export class PortfolioComponent implements OnInit {
     let sortFirstTimeOut = setInterval(() => {
       this.sortPortfolio();
 
-      if (this.getCurrency('BTC').price !== '') {
+      let currency = this.getCurrency('BTC');
+
+      if (currency && currency.price !== '') {
         clearInterval(sortFirstTimeOut);
       }
     }, 1000);
@@ -166,7 +168,7 @@ export class PortfolioComponent implements OnInit {
   }
 
   calculateTotalGain() {
-    return 100 * (this.calculateUserMoney() / this.userStartMoney - 1);
+    return 100 * (this.calculateNetWorth() / this.userStartMoney - 1);
   }
 
   selectedHandler(currency: string) {

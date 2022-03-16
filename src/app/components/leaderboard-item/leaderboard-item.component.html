@@ -1,0 +1,5 @@
+<div class="item" *ngIf="authService.User">
+  <img src="{{ authService.User.photoURL }}" alt="icon" />
+  <p class="name">{{ authService.User.displayName }}</p>
+  <p class="money">50000 €</p>
+</div>

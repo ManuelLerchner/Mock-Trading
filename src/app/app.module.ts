@@ -36,7 +36,7 @@ import { ArrowDownComponent } from './components/arrow-down/arrow-down.component
 import { LoggedInUserComponent } from './components/logged-in-user/logged-in-user.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { NavbarComponent } from './components/trade-navbar/trade-navbar.component';
 import { SignInComponent } from './components/signin/signin.component';
 import { ShareItemComponent } from './components/share-item/share-item.component';
 import { StatisticItemComponent } from './components/statistic-item/statistic-item.component';
@@ -45,6 +45,10 @@ import { TrendItemComponent } from './components/trend-item/trend-item.component
 import { IfChangesDirective } from './components/directives/if-changes.directive';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { TradePageComponent } from './pages/trade-page/trade-page.component';
+import { LeaderboardPageComponent } from './pages/leaderboard-page/leaderboard-page.component';
+import { SubpageNavbarComponent } from './components/subpage-navbar/subpage-navbar.component';
+import { LeaderboardItemComponent } from './components/leaderboard-item/leaderboard-item.component';
 
 registerLocaleData(localeUSA);
 
@@ -68,6 +72,10 @@ registerLocaleData(localeUSA);
     IfChangesDirective,
     SideMenuComponent,
     FooterComponent,
+    TradePageComponent,
+    LeaderboardPageComponent,
+    SubpageNavbarComponent,
+    LeaderboardItemComponent,
   ],
   imports: [
     BrowserModule,

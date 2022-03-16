@@ -12,11 +12,6 @@ export class DataService {
   constructor(private http: HttpClient) {}
 
   fetchData(currencyIds: string[]): Observable<CurrencyTicker[]> {
-    // const response = await fetch(
-    //   environment.apiUrl +
-    //     `/currencies/ticker?ids=${currencyIds}&convert=EUR&per-page=100&page=1`
-    // );
-
     const apiCall = fetch(
       environment.apiUrl +
         `/currencies/ticker?ids=${currencyIds}&convert=EUR&per-page=100&page=1`
@@ -26,7 +21,7 @@ export class DataService {
         return responseJson as CurrencyTicker[];
       })
       .catch((error: any) => {
-        console.error(error);
+        console.log(error);
         return [];
       });
 

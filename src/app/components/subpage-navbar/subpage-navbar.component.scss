@@ -1,0 +1,48 @@
+.navbar {
+  justify-content: space-between;
+
+  display: flex;
+  grid-template-areas: "menuButton title login";
+
+  box-shadow: 0 2px 5px 2px rgb(27, 22, 22);
+  border-bottom: 1px solid rgb(27, 22, 22);
+  z-index: 200;
+  position: relative;
+}
+
+.menuButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  grid-area: menuButton;
+  margin-left: 32px;
+  flex: 1 1 0;
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  grid-area: title;
+  flex: 1 1 0;
+}
+
+.login {
+  grid-area: login;
+  flex: 1 1 0;
+}
+
+mat-toolbar {
+  padding: 0px;
+}
+.icon {
+  color: white;
+  font-size: 28px;
+}
+@media (max-width: 767px) {
+  #logo {
+    display: none;
+  }
+}

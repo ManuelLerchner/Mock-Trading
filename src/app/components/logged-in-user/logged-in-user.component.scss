@@ -19,8 +19,8 @@ img {
   overflow: hidden;
   letter-spacing: 3px;
   opacity: 0;
-  transition: opacity 0.45s;
-  -webkit-transition: opacity 0.35s;
+  -webkit-transition: all 0.35s;
+  transition: all 0.45s;
 }
 
 .button {
