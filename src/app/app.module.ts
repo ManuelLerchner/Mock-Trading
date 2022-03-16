@@ -27,6 +27,7 @@ import { environment } from '../environments/environment';
 import { PositivePipe } from './pipes/positive.pipe';
 
 import { AuthService } from './services/auth.service';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { CurrencyItemComponent } from './components/currency-item/currency-item.component';
@@ -103,7 +104,10 @@ registerLocaleData(localeUSA);
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
