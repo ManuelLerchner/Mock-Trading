@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DataService } from './data-service';
+import { CryptoDataService } from './crypto-data-service';
 
 describe('GetDataPointsService', () => {
-  let service: DataService;
+  let service: CryptoDataService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DataService);
+    service = TestBed.inject(CryptoDataService);
   });
 
   it('should be created', () => {

@@ -8,7 +8,7 @@ import {
 import { Component, HostListener, OnInit } from '@angular/core';
 import { INITIAL_TICKERS } from 'src/app/initialTickers';
 import { CurrencyTicker } from 'src/app/models/CurrencyTicker';
-import { DataService } from 'src/app/services/data-service';
+import { CryptoDataService } from 'src/app/services/crypto-data-service';
 
 @Component({
   selector: 'app-trade-page',
@@ -61,7 +61,7 @@ export class TradePageComponent implements OnInit {
 
   isExpanded = true;
   public innerWidth: any;
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: CryptoDataService) {}
 
   ngOnInit(): void {
     //Start values

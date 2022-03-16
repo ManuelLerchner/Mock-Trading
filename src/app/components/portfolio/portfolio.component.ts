@@ -121,7 +121,11 @@ export class PortfolioComponent implements OnInit {
   }
 
   sortPortfolio() {
-    this.portfolio = this.portfolio.sort((a, b) => this.valueComparator(a, b));
+    if (this.liveCurrencyTickers.length > 0) {
+      this.portfolio = this.portfolio.sort((a, b) =>
+        this.valueComparator(a, b)
+      );
+    }
   }
 
   valueComparator(a: PortfolioItem, b: PortfolioItem): number {

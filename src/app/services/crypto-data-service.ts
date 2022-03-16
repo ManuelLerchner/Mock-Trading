@@ -8,15 +8,18 @@ import { CurrencyTicker } from '../models/CurrencyTicker';
 @Injectable({
   providedIn: 'root',
 })
-export class DataService {
-  constructor(private http: HttpClient) {}
+export class CryptoDataService {
+  constructor() {}
 
   fetchData(currencyIds: string[]): Observable<CurrencyTicker[]> {
-    const apiCall = fetch(
+    const url =
       environment.apiUrl +
-        `/currencies/ticker?ids=${currencyIds}&convert=EUR&per-page=100&page=1`
-    )
-      .then((response) => response.json())
+      `/currencies/ticker?ids=${currencyIds}&convert=EUR&per-page=100&page=1`;
+
+    const apiCall = fetch(url)
+      .then((response) => {
+        return response.json();
+      })
       .then((responseJson) => {
         return responseJson as CurrencyTicker[];
       })

@@ -11,7 +11,7 @@
 
   <mat-divider [inset]="true" class="spacing"></mat-divider>
 
-  <mat-card-content>
+  <mat-card-content *ngIf="liveCurrencyTickers.length">
     <div class="share">
       <app-share-item
         *ngFor="let item of portfolio"

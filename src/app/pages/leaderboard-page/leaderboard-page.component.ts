@@ -2,7 +2,7 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { CurrencyTicker } from 'src/app/models/CurrencyTicker';
 import { PortfolioItem } from 'src/app/models/PortfolioItem';
 import { Profile } from 'src/app/models/Profile';
-import { DataService } from 'src/app/services/data-service';
+import { CryptoDataService } from 'src/app/services/crypto-data-service';
 import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class LeaderboardPageComponent implements OnInit {
   }
   constructor(
     private databaseService: DatabaseService,
-    private dataService: DataService
+    private dataService: CryptoDataService
   ) {}
 
   ngOnInit(): void {
