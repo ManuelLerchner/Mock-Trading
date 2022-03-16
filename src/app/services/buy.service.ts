@@ -26,7 +26,7 @@ export class BuyService {
     let result: any;
 
     await this.dataBaseService
-      .getCurrentUser(user)
+      .getCurrentProfile(user)
       .get()
       .then((data: any) => {
         let userData = data.data();
@@ -50,7 +50,7 @@ export class BuyService {
           amount: amountCrypto,
         });
 
-        this.dataBaseService.updateUser(user, {
+        this.dataBaseService.updateProfile(user, {
           money: increment(-amountEuro),
         });
 
@@ -118,7 +118,7 @@ export class BuyService {
 
         this.dataBaseService.updatePortfolio(user, update);
 
-        this.dataBaseService.updateUser(user, {
+        this.dataBaseService.updateProfile(user, {
           money: increment(amountEuro),
         });
 

@@ -34,6 +34,7 @@ import * as fa from '@fortawesome/free-solid-svg-icons';
 export class PortfolioComponent implements OnInit {
   @Input() liveCurrencyTickers: CurrencyTicker[] = [];
   @Output() selectedEvent = new EventEmitter<string>();
+  @Input() selected: string = '';
 
   portfolio: PortfolioItem[] = [];
   portfolioUnsubscribeFunction: any = null;
@@ -55,7 +56,9 @@ export class PortfolioComponent implements OnInit {
           user as FirebaseUser
         );
 
-        let userRef = this.databaseService.getCurrentUser(user as FirebaseUser);
+        let userRef = this.databaseService.getCurrentProfile(
+          user as FirebaseUser
+        );
 
         userRef.get().then((snapshot: any) => {
           let data = snapshot.data();
@@ -101,14 +104,6 @@ export class PortfolioComponent implements OnInit {
         clearInterval(sortFirstTimeOut);
       }
     }, 1000);
-
-    setInterval(() => {
-      if (this.authService.User) {
-        this.databaseService.updateUser(this.authService.User, {
-          netWorth: this.calculateNetWorth(),
-        });
-      }
-    }, 5000);
   }
 
   unpackData(data: any) {

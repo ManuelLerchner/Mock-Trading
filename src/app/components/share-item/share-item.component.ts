@@ -17,6 +17,7 @@ import { PortfolioItem } from 'src/app/models/PortfolioItem';
 export class ShareItemComponent implements OnInit {
   @Input() item!: PortfolioItem;
   @Input() liveCurrencyTickers: CurrencyTicker[] = [];
+  @Input() selected: string="";
   @Output() selectedCurrencyEvent = new EventEmitter<string>();
 
   constructor() {}

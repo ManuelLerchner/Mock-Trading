@@ -9,6 +9,7 @@
     [isExpanded]="isExpanded"
     [liveCurrencyTickers]="liveCurrencyTickers"
     (selectEvent)="onSelect($event)"
+    [selected]="selectedCurrency"
   ></app-sidenav>
 
   <div class="main">
@@ -22,6 +23,7 @@
     <app-portfolio
       [liveCurrencyTickers]="liveCurrencyTickers"
       (selectedEvent)="onSelect($event)"
+      [selected]="selectedCurrency"
     >
     </app-portfolio>
   </div>

@@ -2,16 +2,16 @@
 
 <div class="leaderboard">
   <div class="grid">
-    <td style="grid-area: p1">2</td>
-    <td style="grid-area: p2">2</td>
-    <td style="grid-area: p3">2</td>
-    <td style="grid-area: p4">2</td>
-    <td style="grid-area: p5">2</td>
-    <td style="grid-area: p6">2</td>
-    <td style="grid-area: p7">2</td>
-    <td style="grid-area: p8">i</td>
-    <td style="grid-area: p9">
-      <app-leaderboard-item></app-leaderboard-item>
-    </td>
+    <div
+      class="leaderboardItem"
+      *ngFor="let num of numberIterator"
+      [ngStyle]="{ 'grid-area': 'p' + num }"
+    >
+      <app-leaderboard-item
+        *ngIf="getProfile(num) as prf"
+        [profile]="prf"
+        style="grid-area: p1"
+      ></app-leaderboard-item>
+    </div>
   </div>
 </div>

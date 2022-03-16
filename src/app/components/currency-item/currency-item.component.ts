@@ -4,12 +4,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CurrencyTicker } from 'src/app/models/CurrencyTicker';
 
 @Component({
-  selector: 'app-currency',
+  selector: 'app-currency-item',
   templateUrl: './currency-item.component.html',
   styleUrls: ['./currency-item.component.scss'],
 })
 export class CurrencyItemComponent implements OnInit {
   @Input() currency!: CurrencyTicker;
+  @Input() selected: boolean = false;
   @Output() selectedEvent = new EventEmitter<string>();
 
   fa: any = fa;

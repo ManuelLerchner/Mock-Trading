@@ -1,4 +1,7 @@
-<div class="item" (click)="onClick()">
+<div
+  [ngClass]="['item', selected == getFullName() ? 'selected' : '']"
+  (click)="onClick()"
+>
   <div class="logoWrapper">
     <p>
       {{ getFullName() }}

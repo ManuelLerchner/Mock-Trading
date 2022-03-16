@@ -1,8 +1,4 @@
-<mat-card
-  class="detailCard"
-  *ngIf="authService.User"
-  [@slideBottom]
->
+<mat-card class="detailCard" *ngIf="authService.User" [@slideBottom]>
   <mat-card-title-group class="titleGroup">
     <h1 class="title">
       {{ authService.User.displayName + "'s Portfolio" }}
@@ -20,6 +16,7 @@
       <app-share-item
         *ngFor="let item of portfolio"
         [item]="item"
+        [selected]="selected"
         [liveCurrencyTickers]="liveCurrencyTickers"
         (selectedCurrencyEvent)="selectedHandler($event)"
       >

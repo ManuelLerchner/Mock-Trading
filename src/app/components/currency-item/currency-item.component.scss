@@ -7,9 +7,12 @@
 
 .item:hover {
   transform: scale(1.05);
-  background-color: rgb(236, 236, 236);
+}
 
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+.selected {
+  // background-color: rgb(212, 255, 249);
+  transform: scale(1.05);
+  border: 3px solid rgb(0, 0, 0);
 }
 
 mat-card {

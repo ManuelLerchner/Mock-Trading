@@ -17,7 +17,14 @@ export class DatabaseService {
         photoURL: user.photoURL,
         emailVerified: user.emailVerified,
         uid: user.uid,
-        createdAt: serverTimestamp(),
+      },
+      { merge: true }
+    );
+
+    this.firestore.collection('profiles').doc(user.uid).set(
+      {
+        name: user.displayName,
+        photoURL: user.photoURL,
       },
       { merge: true }
     );
@@ -26,7 +33,7 @@ export class DatabaseService {
   }
 
   initializeMoney(user: FirebaseUser): void {
-    let docRef = this.firestore.collection('users').doc(user.uid).ref;
+    let docRef = this.firestore.collection('profiles').doc(user.uid).ref;
 
     docRef.get().then((doc) => {
       if (doc.exists) {
@@ -74,8 +81,8 @@ export class DatabaseService {
     });
   }
 
-  updateUser(user: FirebaseUser, update: any) {
-    let userRef = this.firestore.collection('users').doc(user.uid).ref;
+  updateProfile(user: FirebaseUser, update: any) {
+    let userRef = this.firestore.collection('profiles').doc(user.uid).ref;
     userRef.set(update, { merge: true });
   }
 
@@ -88,7 +95,14 @@ export class DatabaseService {
     return this.firestore.collection('portfolios').doc(user.uid).ref;
   }
 
-  getCurrentUser(user: FirebaseUser) {
-    return this.firestore.collection('users').doc(user.uid).ref;
+  getCurrentProfile(user: FirebaseUser) {
+    return this.firestore.collection('profiles').doc(user.uid).ref;
+  }
+
+  getProfiles() {
+    return this.firestore.collection('profiles').ref;
+  }
+  getPortfolios() {
+    return this.firestore.collection('portfolios').ref;
   }
 }

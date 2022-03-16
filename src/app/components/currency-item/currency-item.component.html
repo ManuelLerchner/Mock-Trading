@@ -1,4 +1,4 @@
-<mat-card class="item" (click)="select()">
+<mat-card [ngClass]="['item', selected ? 'selected' : '']" (click)="select()">
   <div class="header">
     <h2>{{ currency.name }}</h2>
 

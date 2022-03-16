@@ -19,9 +19,12 @@ export class SidenavComponent implements OnInit {
   @Output() selectEvent: EventEmitter<string> = new EventEmitter();
   @Input() isExpanded = true;
 
+  @Input() selected: string = '';
+
   ngOnInit() {}
 
-  onSelect(currency: any): void {
+  onSelect(currency: string): void {
+    this.selected = currency;
     this.selectEvent.emit(currency);
   }
 }

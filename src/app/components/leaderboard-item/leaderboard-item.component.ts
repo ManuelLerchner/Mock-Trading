@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Profile } from 'src/app/models/Profile';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -7,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./leaderboard-item.component.scss'],
 })
 export class LeaderboardItemComponent implements OnInit {
+  @Input() profile!: Profile;
   constructor(public authService: AuthService) {}
 
   ngOnInit(): void {}

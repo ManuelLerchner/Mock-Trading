@@ -1,8 +1,9 @@
 <div class="sidebar" *ngIf="isExpanded">
-  <app-currency
+  <app-currency-item
     *ngFor="let currency of liveCurrencyTickers"
     [currency]="currency"
     class="card"
     (selectedEvent)="onSelect($event)"
-  ></app-currency>
+    [selected]="currency.name === selected"
+  ></app-currency-item>
 </div>
