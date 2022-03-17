@@ -11,8 +11,6 @@ import { DatabaseService } from 'src/app/services/database.service';
   styleUrls: ['./leaderboard-page.component.scss'],
 })
 export class LeaderboardPageComponent implements OnInit {
-  @Input() currencyNames: string[]=[];
-
   numberIterator = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   leaderboard: Profile[] = [];
   liveCurrencyTickers: CurrencyTicker[] = [];
@@ -46,9 +44,7 @@ export class LeaderboardPageComponent implements OnInit {
     Promise.all([profiles, portfolios]).then(([profiles, portfolios]) => {
       let newLeaderBoard: Profile[] = [];
 
-      let currentCurrencies = this.currencyNames.map((symb) =>
-        this.getCurrency(symb, this.liveCurrencyTickers)
-      );
+      let currentCurrencies = this.liveCurrencyTickers;
 
       profiles.docs.forEach((profileDoc) => {
         let profile: any = profileDoc.data();
@@ -57,35 +53,26 @@ export class LeaderboardPageComponent implements OnInit {
           return userPortfolio.id === profileDoc.id;
         });
 
+        let newObject = {
+          displayName: profile.name,
+          imgUrl: profile.photoURL,
+          money: profile.money,
+        };
+
         if (portfolio) {
-          newLeaderBoard.push({
-            displayName: profile.name,
-            imgUrl: profile.photoURL,
-            money:
-              this.calculateValue(
-                portfolio.data() as PortfolioItem[],
-                currentCurrencies
-              ) + profile.money,
-          });
-        } else {
-          newLeaderBoard.push({
-            displayName: profile.name,
-            imgUrl: profile.photoURL,
-            money: profile.money,
-          });
+          newObject.money += this.calculateValue(
+            portfolio.data() as PortfolioItem[],
+            currentCurrencies
+          );
         }
+
+        newLeaderBoard.push(newObject);
       });
 
       newLeaderBoard.sort((a, b) => b.money - a.money);
 
       this.leaderboard = newLeaderBoard;
     });
-  }
-
-  getCurrency(symbol: string, currencyTickers: CurrencyTicker[]) {
-    return currencyTickers.find(
-      (currency: CurrencyTicker) => currency.symbol === symbol
-    ) as CurrencyTicker;
   }
 
   calculateValue(

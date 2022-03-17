@@ -6,7 +6,6 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { INITIAL_TICKERS } from 'src/app/initialTickers';
 import { CurrencyTicker } from 'src/app/models/CurrencyTicker';
 import { CryptoDataService } from 'src/app/services/crypto-data-service';
 
@@ -31,8 +30,8 @@ import { CryptoDataService } from 'src/app/services/crypto-data-service';
       ]),
     ]),
     trigger('replace', [
-      transition('void => *', [animate('0.6s 0.6s ease-out')]),
-      transition('* => void', [animate('0.6s  ease-out')]),
+      transition('void => *', [animate('0.3s 0.3s ease-in')]),
+      transition('* => void', [animate('0.3s  ease-out')]),
 
       state(
         'void',
@@ -55,7 +54,7 @@ import { CryptoDataService } from 'src/app/services/crypto-data-service';
 export class TradePageComponent implements OnInit {
   selectedCurrency: string = 'Bitcoin';
 
-  liveCurrencyTickers!: CurrencyTicker[];
+  liveCurrencyTickers: CurrencyTicker[] = [];
 
   isExpanded = true;
   public innerWidth: any;
@@ -63,7 +62,6 @@ export class TradePageComponent implements OnInit {
 
   ngOnInit(): void {
     //Start values
-    this.liveCurrencyTickers = INITIAL_TICKERS;
 
     let updateData = () => {
       let data = this.dataService.fetchData();

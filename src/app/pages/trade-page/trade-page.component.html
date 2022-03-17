@@ -14,8 +14,6 @@
 
   <div class="main">
     <app-currency-detail
-      *ifChanges="selectedCurrency"
-      [@replace]
       [currencyName]="selectedCurrency"
       [liveCurrencyTickers]="liveCurrencyTickers"
     ></app-currency-detail>
