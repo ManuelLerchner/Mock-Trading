@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { CurrencyTicker } from 'src/app/models/CurrencyTicker';
 import { PortfolioItem } from 'src/app/models/PortfolioItem';
 import { Profile } from 'src/app/models/Profile';
@@ -11,7 +11,7 @@ import { DatabaseService } from 'src/app/services/database.service';
   styleUrls: ['./leaderboard-page.component.scss'],
 })
 export class LeaderboardPageComponent implements OnInit {
-  currencyNames: string[] = ['BTC', 'ETH', 'XRP', 'DOGE', 'USDT', 'SOL'];
+  @Input() currencyNames: string[]=[];
 
   numberIterator = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   leaderboard: Profile[] = [];
@@ -27,7 +27,7 @@ export class LeaderboardPageComponent implements OnInit {
 
   ngOnInit(): void {
     let updateData = () => {
-      let data = this.dataService.fetchData(this.currencyNames);
+      let data = this.dataService.fetchData();
 
       data.subscribe((data) => {
         this.liveCurrencyTickers = data;

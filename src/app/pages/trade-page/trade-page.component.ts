@@ -53,8 +53,6 @@ import { CryptoDataService } from 'src/app/services/crypto-data-service';
   ],
 })
 export class TradePageComponent implements OnInit {
-  currencyNames: string[] = ['BTC', 'ETH', 'XRP', 'DOGE', 'USDT', 'SOL'];
-
   selectedCurrency: string = 'Bitcoin';
 
   liveCurrencyTickers!: CurrencyTicker[];
@@ -68,7 +66,7 @@ export class TradePageComponent implements OnInit {
     this.liveCurrencyTickers = INITIAL_TICKERS;
 
     let updateData = () => {
-      let data = this.dataService.fetchData(this.currencyNames);
+      let data = this.dataService.fetchData();
 
       data.subscribe((data) => {
         this.liveCurrencyTickers = data;

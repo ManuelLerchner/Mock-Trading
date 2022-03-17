@@ -11,10 +11,29 @@ import { CurrencyTicker } from '../models/CurrencyTicker';
 export class CryptoDataService {
   constructor() {}
 
-  fetchData(currencyIds: string[]): Observable<CurrencyTicker[]> {
+  currencyNames: string[] = [
+    'BTC',
+    'ETH',
+    'XRP',
+    'DOGE',
+    'USDT',
+    'SOL',
+    'BNB',
+    'LUNA',
+    'HEX',
+    'SHIB',
+    'MATIC',
+    'ATOM',
+    'TRX',
+    'MANA',
+    'ICP',
+    '1INCH',
+  ];
+
+  fetchData(): Observable<CurrencyTicker[]> {
     const url =
       environment.apiUrl +
-      `/currencies/ticker?ids=${currencyIds}&convert=EUR&per-page=100&page=1`;
+      `/currencies/ticker?ids=${this.currencyNames}&convert=EUR&per-page=100&page=1`;
 
     const apiCall = fetch(url)
       .then((response) => {
