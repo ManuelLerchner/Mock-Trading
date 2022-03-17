@@ -77,7 +77,7 @@ export class ShareItemComponent implements OnInit {
       this.oldAmount = newValue;
 
       setTimeout(() => {
-        this.change = '';z
+        this.change = '';
       }, 6000);
     }
   }
