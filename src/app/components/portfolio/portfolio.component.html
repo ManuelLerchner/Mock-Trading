@@ -14,6 +14,7 @@
   <mat-card-content *ngIf="liveCurrencyTickers.length">
     <div class="share">
       <app-share-item
+        class="shareItem"
         *ngFor="let item of portfolio"
         [item]="item"
         [selected]="selected"

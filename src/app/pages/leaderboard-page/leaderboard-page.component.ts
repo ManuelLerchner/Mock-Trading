@@ -28,8 +28,10 @@ export class LeaderboardPageComponent implements OnInit {
       let data = this.dataService.fetchData();
 
       data.subscribe((data) => {
-        this.liveCurrencyTickers = data;
-        this.updateLeaderBoard();
+        if (data.length > 0) {
+          this.liveCurrencyTickers = data;
+          this.updateLeaderBoard();
+        }
       });
     };
 

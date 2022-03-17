@@ -46,6 +46,9 @@ export class DatabaseService {
             startMoney: startMoney,
             startMoneyReceived: true,
           });
+
+          const portfolioRef = this.getCurrentPortfolio(user);
+          portfolioRef.set({}, { merge: true });
         }
       }
     });
