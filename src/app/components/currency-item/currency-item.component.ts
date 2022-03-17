@@ -33,12 +33,7 @@ export class CurrencyItemComponent implements OnInit {
     let delta = this.priceDeltas[this.currency.symbol];
     this.priceIncreasePrct = delta[1];
     this.priceIncreaseAbsolute = delta[2];
-
-    if (this.priceIncreaseAbsolute > 0) {
-      this.change = 'increase';
-    } else if (this.priceIncreaseAbsolute < 0) {
-      this.change = 'decrease';
-    }
+    this.change = delta[3];
   }
 
   formatIncrease() {

@@ -42,20 +42,20 @@
       <div class="trend underline">
         <app-arrow-up
           class="arrow"
-          *ngIf="
-            change !== '' && (priceIncreaseAbsolute | positive);
-            else negative
-          "
+          *ngIf="change === 'increase'; else negative"
         ></app-arrow-up>
 
         <ng-template #negative>
-          <app-arrow-down class="arrow" *ngIf="change !== ''"></app-arrow-down>
+          <app-arrow-down
+            class="arrow"
+            *ngIf="change === 'decrease'"
+          ></app-arrow-down>
         </ng-template>
 
         <p>
           {{
             change === ""
-              ? "- "
+              ? "-"
               : (formatIncrease() | number: "1.2-2":"en-US-POSI") + getUnit()
           }}
         </p>
