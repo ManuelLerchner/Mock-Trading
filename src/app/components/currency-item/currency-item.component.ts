@@ -38,8 +38,6 @@ export class CurrencyItemComponent implements OnInit {
       this.change = 'increase';
     } else if (this.priceIncreaseAbsolute < 0) {
       this.change = 'decrease';
-    } else {
-      this.change = '';
     }
   }
 
