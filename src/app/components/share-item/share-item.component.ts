@@ -68,15 +68,11 @@ export class ShareItemComponent implements OnInit {
             this.change = 'increase';
           } else if (newValue < this.oldAmount) {
             this.change = 'decrease';
-          } 
+          }
         }
       }
 
       this.oldAmount = newValue;
-
-      setTimeout(() => {
-        this.change = '';
-      }, 6000);
     }
   }
 }
