@@ -1,20 +1,25 @@
 <app-subpage-navbar></app-subpage-navbar>
 
-<div class="leaderboard">
-  <div class="grid">
-    <div
-      class="leaderboardItem"
-      *ngFor="let num of numberIterator"
-      [ngStyle]="{ 'grid-area': 'p' + num }"
-    >
-      <app-leaderboard-item
-        *ngIf="getProfile(num) as prf"
-        [profile]="prf"
-        style="grid-area: p1"
-      ></app-leaderboard-item>
-      <p *ngIf="!getProfile(num)">
-        {{ num }}
-      </p>
+<div class="page">
+  <div class="leaderboard">
+    <div class="grid">
+      <div
+        class="leaderboardItem"
+        *ngFor="let num of numberIterator"
+        [ngStyle]="{ 'grid-area': 'p' + num }"
+      >
+        <app-leaderboard-item
+          *ngIf="getProfile(num) as prf"
+          [profile]="prf"
+          style="grid-area: p1"
+        ></app-leaderboard-item>
+        <p *ngIf="!getProfile(num)">
+          {{ num + 1 }}
+        </p>
+      </div>
     </div>
+  </div>
+  <div class="side-menu">
+    <app-side-menu></app-side-menu>
   </div>
 </div>

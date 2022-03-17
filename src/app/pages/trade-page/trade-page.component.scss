@@ -20,6 +20,14 @@ mat-toolbar > span {
   justify-content: space-between;
   align-items: center;
   position: relative;
+  overflow-y: scroll;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.main::-webkit-scrollbar {
+  display: none;
 }
 
 .page {
@@ -28,7 +36,6 @@ mat-toolbar > span {
   height: calc(100% - 64px);
 
   justify-content: center;
-  overflow-x: auto;
 }
 
 .sideNav {

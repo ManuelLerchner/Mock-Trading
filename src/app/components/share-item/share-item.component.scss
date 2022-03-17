@@ -2,24 +2,31 @@
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 
-  p {
-    margin: 0px;
-    margin-right: 10px;
-    font-size: 16px;
-    font-weight: 500;
-  }
+  width: 90%;
 
   padding-bottom: 8px;
   border-bottom: 1px solid #46464663;
-}
 
-img {
-  height: 24px;
-  width: 24px;
-  object-fit: contain;
-  filter: drop-shadow(2px 2px 2px rgb(27, 27, 27));
+  p {
+    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    margin: 0px;
+  }
+
+  img {
+    height: 24px;
+    width: 24px;
+    object-fit: contain;
+    filter: drop-shadow(2px 2px 2px rgb(27, 27, 27));
+  }
 }
 
 .item {
@@ -27,8 +34,6 @@ img {
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  padding: 2px;
-  margin: 4px;
 
   transition: all 0.2s ease-out;
   cursor: pointer;

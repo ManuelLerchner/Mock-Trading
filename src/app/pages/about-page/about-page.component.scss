@@ -1,0 +1,87 @@
+.page {
+  display: flex;
+  width: calc(100%);
+  min-height: calc(100% - 64px);
+
+  justify-content: center;
+  align-items: center;
+}
+
+.about {
+  display: flex;
+  margin-right: auto;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: whitesmoke;
+
+  h1 {
+    font-size: 42px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  p {
+    font-size: 18px;
+    font-weight: 380;
+    width: 70%;
+    max-width: 1200px;
+
+    a {
+      color: rgb(69, 189, 0);
+      text-decoration: none;
+      font-weight: 460;
+    }
+
+    line-height: 1.5em;
+    margin: 0px;
+
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+}
+
+.side-menu {
+  width: 64px;
+  position: absolute;
+  left: calc(100% - 64px);
+}
+
+.copyright {
+  font-size: 14px;
+  font-weight: 400;
+  width: 100%;
+  background-color: rgb(104, 122, 221);
+
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 -2px 5px 4px rgba(27, 22, 22, 0.349);
+  position: relative;
+  z-index: 6;
+
+  p {
+    margin: 0px;
+    font-size: 20px;
+
+    a {
+      color: black;
+      text-decoration: none;
+      font-weight: 400;
+    }
+  }
+}
+
+.projectDescription {
+  width: 90%;
+}
+@media (max-width: 500px) {
+  .projectDescription {
+    font-size: 16px;
+  }
+}

@@ -2,8 +2,12 @@
   <app-currency-item
     *ngFor="let currency of liveCurrencyTickers"
     [currency]="currency"
+    [priceDeltas]="priceDeltas"
     class="card"
     (selectedEvent)="onSelect($event)"
     [selected]="currency.name === selected"
   ></app-currency-item>
+  <a href="https://nomics.com" rel="nofollow" class="nomics-link">
+    Crypto Market Cap & Pricing Data Provided By Nomics</a
+  >
 </div>

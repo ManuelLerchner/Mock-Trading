@@ -43,30 +43,25 @@
         <app-arrow-up
           class="arrow"
           *ngIf="
-            currency.price !== '' &&
-              (currency['1d'].price_change_pct | positive);
+            change !== '' && (priceIncreaseAbsolute | positive);
             else negative
           "
         ></app-arrow-up>
 
         <ng-template #negative>
-          <app-arrow-down
-            class="arrow"
-            *ngIf="currency.price !== ''"
-          ></app-arrow-down>
+          <app-arrow-down class="arrow" *ngIf="change !== ''"></app-arrow-down>
         </ng-template>
 
         <p>
           {{
-            currency["1d"].price_change_pct === ""
-              ? "- %"
-              : (pctToNumber(currency["1d"].price_change_pct)
-                  | number: "1.2-2":"en-US-POSI") + "%"
+            change === ""
+              ? "- "
+              : (formatIncrease() | number: "1.2-2":"en-US-POSI") + getUnit()
           }}
         </p>
       </div>
       <div class="break"></div>
-      <span class="description">1-Day Trend</span>
+      <span class="description">Live Trend</span>
     </div>
   </div>
 </mat-card>

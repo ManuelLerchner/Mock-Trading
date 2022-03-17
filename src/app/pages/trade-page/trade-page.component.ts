@@ -58,6 +58,7 @@ export class TradePageComponent implements OnInit {
 
   isExpanded = true;
   public innerWidth: any;
+  updateCounter: any = 0;
   constructor(private dataService: CryptoDataService) {}
 
   ngOnInit(): void {
@@ -68,6 +69,7 @@ export class TradePageComponent implements OnInit {
 
       data.subscribe((data) => {
         this.liveCurrencyTickers = data;
+        this.updateCounter++;
       });
     };
 

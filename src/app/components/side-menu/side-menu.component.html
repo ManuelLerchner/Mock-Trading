@@ -1,11 +1,17 @@
 <div class="menu">
-  <a routerLink="/leaderboard">
+  <a routerLinkActive="active" routerLink="/">
     <button mat-fab color="primary">
+      <mat-icon>price_change</mat-icon>
+    </button></a
+  >
+
+  <a routerLinkActive="active" routerLink="/leaderboard">
+    <button mat-fab color="accent">
       <mat-icon>groups</mat-icon>
     </button>
   </a>
 
-  <a href="#footer">
+  <a routerLinkActive="active" routerLink="/about">
     <button mat-fab color="warn">
       <mat-icon>info</mat-icon>
     </button></a

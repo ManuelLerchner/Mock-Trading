@@ -45,11 +45,11 @@ import { TradeResponseComponent } from './components/trade-response/trade-respon
 import { TrendItemComponent } from './components/trend-item/trend-item.component';
 import { IfChangesDirective } from './components/directives/if-changes.directive';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { TradePageComponent } from './pages/trade-page/trade-page.component';
 import { LeaderboardPageComponent } from './pages/leaderboard-page/leaderboard-page.component';
 import { SubpageNavbarComponent } from './components/subpage-navbar/subpage-navbar.component';
 import { LeaderboardItemComponent } from './components/leaderboard-item/leaderboard-item.component';
+import { AboutPageComponent } from './pages/about-page/about-page.component';
 
 registerLocaleData(localeUSA);
 
@@ -72,11 +72,12 @@ registerLocaleData(localeUSA);
     TrendItemComponent,
     IfChangesDirective,
     SideMenuComponent,
-    FooterComponent,
+
     TradePageComponent,
     LeaderboardPageComponent,
     SubpageNavbarComponent,
     LeaderboardItemComponent,
+    AboutPageComponent,
   ],
   imports: [
     BrowserModule,

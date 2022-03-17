@@ -54,7 +54,7 @@
       </svg>
       <input
         type="text"
-        class="input-s form-control money"
+        class="input form-control money"
         placeholder="€"
         [(ngModel)]="amount"
         name="amount"
@@ -62,7 +62,7 @@
         oninput="this.value = this.value.replace(/[^0-9.,]/g, '').replace(/(\..*)\./g, '$1');"
       />
 
-      <div>
+      <div class="buttons">
         <button
           class="button button-buy"
           type="button"

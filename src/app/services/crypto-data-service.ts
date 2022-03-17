@@ -28,6 +28,10 @@ export class CryptoDataService {
     'MANA',
     'ICP',
     '1INCH',
+    'AUDIO',
+    'SUSHI',
+    'DYDX',
+    'FX',
   ];
 
   fetchData(): Observable<CurrencyTicker[]> {
