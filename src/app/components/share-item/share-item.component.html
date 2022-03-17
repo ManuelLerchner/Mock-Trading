@@ -19,7 +19,13 @@
       </td>
     </tr>
     <tr [ngClass]="[change, 'last']">
-      <th>{{ getCurrentPrice() | number: "1.1-1":"en-US-POSI" }}</th>
+      <th>
+        {{
+          getCurrentPrice()
+            ? (getCurrentPrice() | number: "1.1-1":"en-US-POSI")
+            : "-"
+        }}
+      </th>
       <td>EUR</td>
     </tr>
   </table>

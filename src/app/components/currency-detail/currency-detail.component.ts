@@ -98,4 +98,19 @@ export class CurrencyDetailComponent implements OnInit {
       this.amount = '';
     }
   }
+
+  async onBuyAll(currency: CurrencyTicker) {
+    let [succ, message] = await this.buyService.buy(currency, Infinity);
+    this.transactionSuccesfull = succ;
+    this.transactionMessage = message;
+    this.transactionVissible = true;
+
+    setTimeout(() => {
+      this.transactionVissible = false;
+    }, 4000);
+
+    if (succ) {
+      this.amount = '';
+    }
+  }
 }

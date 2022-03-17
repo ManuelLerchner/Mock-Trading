@@ -7,10 +7,10 @@ import { Transaction } from '../models/Transaction';
   providedIn: 'root',
 })
 export class DatabaseService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private db: AngularFirestore) {}
 
   registerUser(user: FirebaseUser) {
-    this.firestore.collection('users').doc(user.uid).set(
+    this.db.collection('users').doc(user.uid).set(
       {
         name: user.displayName,
         email: user.email,
@@ -21,7 +21,7 @@ export class DatabaseService {
       { merge: true }
     );
 
-    this.firestore.collection('profiles').doc(user.uid).set(
+    this.db.collection('profiles').doc(user.uid).set(
       {
         name: user.displayName,
         photoURL: user.photoURL,
@@ -33,76 +33,51 @@ export class DatabaseService {
   }
 
   initializeMoney(user: FirebaseUser): void {
-    let docRef = this.firestore.collection('profiles').doc(user.uid).ref;
+    let docRef = this.getCurrentProfile(user);
 
     docRef.get().then((doc) => {
       if (doc.exists) {
         let data: any = doc.data();
 
-        if (!data['money']) {
+        if (!data['startMoneyReceived']) {
           const startMoney = 10000;
-          docRef.update({ money: startMoney, startMoney: startMoney });
+          docRef.update({
+            money: startMoney,
+            startMoney: startMoney,
+            startMoneyReceived: true,
+          });
         }
       }
-    });
-  }
-
-  updatePortfolioWithTransaction(user: FirebaseUser, transaction: Transaction) {
-    let portfolios = this.firestore.collection<any>('portfolios');
-
-    let portfolio = portfolios.doc(user.uid);
-    let symbol = transaction.symbol;
-
-    portfolio.get().subscribe((doc) => {
-      let data = doc.data();
-      let update: any = {};
-
-      if (data) {
-        let oldAmount = data[symbol];
-
-        if (!oldAmount) {
-          oldAmount = 0;
-        }
-
-        let newAmount = oldAmount + transaction.amount;
-
-        update[symbol] = newAmount;
-      } else {
-        update[symbol] = transaction.amount;
-      }
-
-      portfolio.set(update, { merge: true });
     });
   }
 
   deleteCurrency(user: FirebaseUser, symbol: string) {
-    this.updatePortfolio(user, {
-      [symbol]: deleteField(),
-    });
-  }
-
-  updateProfile(user: FirebaseUser, update: any) {
-    let userRef = this.firestore.collection('profiles').doc(user.uid).ref;
-    userRef.set(update, { merge: true });
-  }
-
-  updatePortfolio(user: FirebaseUser, update: any) {
-    let userRef = this.firestore.collection('portfolios').doc(user.uid).ref;
-    userRef.set(update, { merge: true });
+    let userRef = this.db.collection('portfolios').doc(user.uid).ref;
+    userRef.set(
+      {
+        [symbol]: deleteField(),
+      },
+      { merge: true }
+    );
   }
 
   getCurrentPortfolio(user: FirebaseUser) {
-    return this.firestore.collection('portfolios').doc(user.uid).ref;
+    return this.db.collection('portfolios').doc(user.uid).ref;
   }
 
   getCurrentProfile(user: FirebaseUser) {
-    return this.firestore.collection('profiles').doc(user.uid).ref;
+    return this.db.collection('profiles').doc(user.uid).ref;
   }
 
   getProfiles() {
-    return this.firestore.collection('profiles').ref;
+    return this.db.collection('profiles').ref;
   }
+
   getPortfolios() {
-    return this.firestore.collection('portfolios').ref;
+    return this.db.collection('portfolios').ref;
+  }
+
+  createBatch() {
+    return this.db.firestore.batch();
   }
 }

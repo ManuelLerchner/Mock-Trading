@@ -38,7 +38,7 @@ export class AuthService {
     this.auth
       .signOut()
       .then(() => {
-        console.log('logged out');
+        console.log('You have been successfully logged out!');
       })
       .catch((error) => {
         console.log(error);

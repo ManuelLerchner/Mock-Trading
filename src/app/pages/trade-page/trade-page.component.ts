@@ -76,7 +76,7 @@ export class TradePageComponent implements OnInit {
     };
 
     updateData();
-    // console.log(this.liveCurrencyTickers);
+
     setInterval(() => updateData(), 1000 * 10);
 
     this.innerWidth = window.innerWidth;

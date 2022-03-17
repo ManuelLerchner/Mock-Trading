@@ -23,45 +23,41 @@ export class BuyService {
       return [false, 'Authentification error'];
     }
 
-    let result: any;
+    let userprofile = this.dataBaseService.getCurrentProfile(user);
+    let portfolio = this.dataBaseService.getCurrentPortfolio(user);
 
-    await this.dataBaseService
-      .getCurrentProfile(user)
-      .get()
-      .then((data: any) => {
-        let userData = data.data();
-        let money = userData.money;
-        let user = this.auth.User;
+    let profile: any = await userprofile.get();
+    let money = profile.data().money;
 
-        if (money < amountEuro) {
-          result = [false, 'Not enough money'];
-          return;
-        }
+    let buyEverything = false;
 
-        if (!user) {
-          result = [false, 'Authentification error'];
-          return;
-        }
+    if (amountEuro === Infinity) {
+      buyEverything = true;
+    }
 
-        let amountCrypto = amountEuro / parseFloat(currency.price);
+    if (money < amountEuro && !buyEverything) {
+      return [false, 'Not enough money'];
+    }
 
-        this.dataBaseService.updatePortfolioWithTransaction(user, {
-          symbol: currency.symbol,
-          amount: amountCrypto,
-        });
+    if (buyEverything) {
+      amountEuro = money;
+    }
 
-        this.dataBaseService.updateProfile(user, {
-          money: increment(-amountEuro),
-        });
+    let amountCrypto = amountEuro / parseFloat(currency.price);
 
-        result = [true, 'Transaction successful'];
-      })
-      .catch((error) => {
-        console.log(error);
-        result = [false, 'An error occurred'];
-      });
+    let batch = this.dataBaseService.createBatch();
 
-    return result;
+    batch.update(portfolio, {
+      [currency.symbol]: increment(amountCrypto),
+    });
+
+    batch.update(userprofile, {
+      money: increment(-amountEuro),
+    });
+
+    await batch.commit();
+
+    return [true, 'Transaction successful'];
   }
 
   async sell(
@@ -74,68 +70,53 @@ export class BuyService {
       return [false, 'Authentification error'];
     }
 
-    let result: any;
+    let userprofile = this.dataBaseService.getCurrentProfile(user);
+    let portfolio = this.dataBaseService.getCurrentPortfolio(user);
+
+    let profile: any = await portfolio.get();
+
+    let amountCrypto = profile.data()[currency.symbol];
+
     let sellEverything = false;
 
     if (amountEuro === Infinity) {
       sellEverything = true;
     }
 
-    await this.dataBaseService
-      .getCurrentPortfolio(user)
-      .get()
-      .then((data: any) => {
-        let userData = data.data();
-        let amountCrypto = userData[currency.symbol];
+    if (!amountCrypto) {
+      return [false, `No ${currency.symbol} in portfolio`];
+    }
 
-        let amountCryptoEuro = amountCrypto * parseFloat(currency.price);
-        let user = this.auth.User;
+    let cryptoValueEuro = amountCrypto * parseFloat(currency.price);
 
-        if (amountEuro > amountCryptoEuro && !sellEverything) {
-          result = [false, `Not enough ${currency.symbol}`];
-          return;
-        }
+    if (amountEuro > cryptoValueEuro && !sellEverything) {
+      return [false, `Not enough ${currency.symbol}`];
+    }
 
-        if (!amountCrypto) {
-          result = [false, `No ${currency.symbol} in portfolio`];
-          return;
-        }
+    let soldCrypto = amountEuro / parseFloat(currency.price);
 
-        if (!user) {
-          result = [false, 'Authentification error'];
-          return;
-        }
+    if (sellEverything) {
+      soldCrypto = amountCrypto;
+      amountEuro = cryptoValueEuro;
+    }
 
-        let soldCrypto = amountEuro / parseFloat(currency.price);
+    let batch = this.dataBaseService.createBatch();
 
-        if (sellEverything) {
-          soldCrypto = amountCrypto;
-          amountEuro = amountCryptoEuro;
-        }
+    batch.update(portfolio, {
+      [currency.symbol]: increment(-soldCrypto),
+    });
 
-        let update: any = {};
-        update[currency.symbol] = increment(-soldCrypto);
+    batch.update(userprofile, {
+      money: increment(amountEuro),
+    });
 
-        this.dataBaseService.updatePortfolio(user, update);
+    await batch.commit();
 
-        this.dataBaseService.updateProfile(user, {
-          money: increment(amountEuro),
-        });
+    if (sellEverything || soldCrypto === amountCrypto) {
+      this.dataBaseService.deleteCurrency(user, currency.symbol);
+      return [true, 'Sold everything'];
+    }
 
-        if (sellEverything) {
-          this.dataBaseService.deleteCurrency(user, currency.symbol);
-
-          result = [true, 'Sold everything'];
-          return;
-        }
-
-        result = [true, 'Transaction successful'];
-      })
-      .catch((error) => {
-        console.log(error);
-        result = [false, 'An error occurred'];
-      });
-
-    return result;
+    return [true, 'Transaction successful'];
   }
 }

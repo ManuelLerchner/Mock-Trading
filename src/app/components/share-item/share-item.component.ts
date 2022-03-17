@@ -17,7 +17,7 @@ import { PortfolioItem } from 'src/app/models/PortfolioItem';
 export class ShareItemComponent implements OnInit {
   @Input() item!: PortfolioItem;
   @Input() liveCurrencyTickers: CurrencyTicker[] = [];
-  @Input() selected: string="";
+  @Input() selected: string = '';
   @Output() selectedCurrencyEvent = new EventEmitter<string>();
 
   constructor() {}
@@ -43,10 +43,10 @@ export class ShareItemComponent implements OnInit {
       (currency: CurrencyTicker) => currency.symbol === this.item.symbol
     );
 
-    if (currency) {
+    if (currency?.price) {
       return parseFloat(currency.price) * this.item.amount;
     } else {
-      return '-';
+      return '';
     }
   }
 

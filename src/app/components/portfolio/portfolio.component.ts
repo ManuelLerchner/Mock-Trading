@@ -150,7 +150,7 @@ export class PortfolioComponent implements OnInit {
     ) as CurrencyTicker;
   }
 
-  calculateTotalValue() {
+  calculatePortfolioMoney() {
     return this.portfolio.reduce(
       (acc, curr) =>
         acc + curr.amount * parseFloat(this.getCurrency(curr.symbol).price),
@@ -159,7 +159,7 @@ export class PortfolioComponent implements OnInit {
   }
 
   calculateNetWorth() {
-    return this.userMoney + this.calculateTotalValue();
+    return this.userMoney + this.calculatePortfolioMoney();
   }
 
   calculateUserMoney() {
