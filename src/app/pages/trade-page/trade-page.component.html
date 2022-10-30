@@ -1,29 +1,20 @@
 <trade-app-navbar (toggleEvent)="toggleSideBar()"></trade-app-navbar>
 
 <div class="page">
-  <app-sidenav
-    id="overlapOnMobile"
-    class="sideNav"
-    *ngIf="isExpanded && liveCurrencyTickers.length > 0"
-    [@slideLeft]
-    [isExpanded]="isExpanded"
-    [liveCurrencyTickers]="liveCurrencyTickers"
-    [updateCounter]="updateCounter"
-    (selectEvent)="onSelect($event)"
-    [selected]="selectedCurrency"
-  ></app-sidenav>
+  <app-sidenav id="overlapOnMobile" class="sideNav" *ngIf="isExpanded && liveCurrencyTickers.length > 0" [@slideLeft]
+    [isExpanded]="isExpanded" [liveCurrencyTickers]="liveCurrencyTickers" [updateCounter]="updateCounter"
+    (selectEvent)="onSelect($event)" [selected]="selectedCurrency"></app-sidenav>
 
   <div class="main">
-    <app-currency-detail
-      [currencyName]="selectedCurrency"
-      [liveCurrencyTickers]="liveCurrencyTickers"
-    ></app-currency-detail>
+    <app-currency-detail [currencyName]="selectedCurrency" [liveCurrencyTickers]="liveCurrencyTickers">
+    </app-currency-detail>
 
-    <app-portfolio
-      [liveCurrencyTickers]="liveCurrencyTickers"
-      (selectedEvent)="onSelect($event)"
-      [selected]="selectedCurrency"
-    >
+    <h1 style="color:red">
+      The API used for fetching cryptocurrency-data is no longer available. <br>
+      Therefore, this application is no longer functional. I am currently working on a fix.
+    </h1>
+    <app-portfolio [liveCurrencyTickers]="liveCurrencyTickers" (selectedEvent)="onSelect($event)"
+      [selected]="selectedCurrency">
     </app-portfolio>
   </div>
 
