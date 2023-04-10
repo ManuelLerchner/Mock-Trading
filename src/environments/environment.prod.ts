@@ -10,5 +10,5 @@ export const environment = {
     measurementId: 'G-DY875EDE80',
   },
   production: true,
-  apiUrl: 'https://api.manuellerchner.de/nomics',
+  apiUrl: 'https://api.manuellerchner.de/mocktrading/api',
 };

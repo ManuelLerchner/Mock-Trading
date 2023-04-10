@@ -14,7 +14,7 @@ export const environment = {
     measurementId: 'G-DY875EDE80',
   },
   production: false,
-  apiUrl: 'http://localhost:4000/nomics',
+  apiUrl: 'http://localhost:4000/mocktrading/api',
 };
 
 /*

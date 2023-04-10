@@ -11,7 +11,6 @@ export class CurrencyDetailComponent implements OnInit {
   @Input() currencyName: string = '';
   @Input() liveCurrencyTickers: CurrencyTicker[] = [];
 
-
   amount: string = '';
 
   constructor(private buyService: BuyService) {}
@@ -28,11 +27,9 @@ export class CurrencyDetailComponent implements OnInit {
 
   getTrends(currency: CurrencyTicker) {
     return [
-      { time: '1-Day', data: currency['1d'] },
-      { time: '7-Day', data: currency['7d'] },
-      { time: '30-Day', data: currency['30d'] },
-      // { time: 'YTD', data: currency['ytd'] },
-      { time: '365-Day', data: currency['365d'] },
+      { time: '1-Hour', data: currency['priceChange1h'] },
+      { time: '1-Day', data: currency['priceChange1d'] },
+      { time: '1-Week', data: currency['priceChange1w'] },
     ];
   }
 

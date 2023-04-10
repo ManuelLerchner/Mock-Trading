@@ -4,7 +4,8 @@ export interface CurrencyTicker {
 
   price: string;
 
-  logo_url: string;
-
-  [key: string]: any;
+  icon: string;
+  priceChange1h: string;
+  priceChange1d: string;
+  priceChange1w: string;
 }

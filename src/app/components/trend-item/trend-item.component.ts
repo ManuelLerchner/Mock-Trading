@@ -12,9 +12,4 @@ export class TrendItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
-  pctToNumber(input: string) {
-    var numeric = Number(input);
-    return numeric * 100;
-  }
 }

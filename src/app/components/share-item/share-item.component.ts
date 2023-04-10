@@ -29,7 +29,7 @@ export class ShareItemComponent implements OnInit {
   getImageUrl() {
     return this.liveCurrencyTickers.find(
       (currency: CurrencyTicker) => currency.symbol === this.item.symbol
-    )?.logo_url;
+    )?.icon;
   }
 
   getFullName() {
