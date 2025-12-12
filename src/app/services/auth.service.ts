@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { GoogleAuthProvider } from 'firebase/auth';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { User as FirebaseUser } from 'firebase/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { DatabaseService } from './database.service';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  User: FirebaseUser | undefined;
+  User: firebase.User | undefined;
 
   constructor(public auth: AngularFireAuth, private db: DatabaseService) {
     this.auth.onAuthStateChanged((user) => {
-      this.User = user as FirebaseUser;
+      this.User = user as firebase.User;
 
       if (this.User) {
         this.db.registerUser(this.User);
@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   GoogleAuth() {
-    return this.AuthLogin(new GoogleAuthProvider());
+    return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
   }
 
   AuthLogin(provider: any) {

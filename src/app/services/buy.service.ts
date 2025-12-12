@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { increment } from '@angular/fire/firestore';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import { CurrencyTicker } from '../models/CurrencyTicker';
 import { AuthService } from './auth.service';
 import { DatabaseService } from './database.service';
@@ -48,11 +49,11 @@ export class BuyService {
     let batch = this.dataBaseService.createBatch();
 
     batch.update(portfolio, {
-      [currency.symbol]: increment(amountCrypto),
+      [currency.symbol]: firebase.firestore.FieldValue.increment(amountCrypto),
     });
 
     batch.update(userprofile, {
-      money: increment(-amountEuro),
+      money: firebase.firestore.FieldValue.increment(-amountEuro),
     });
 
     await batch.commit();
@@ -103,11 +104,11 @@ export class BuyService {
     let batch = this.dataBaseService.createBatch();
 
     batch.update(portfolio, {
-      [currency.symbol]: increment(-soldCrypto),
+      [currency.symbol]: firebase.firestore.FieldValue.increment(-soldCrypto),
     });
 
     batch.update(userprofile, {
-      money: increment(amountEuro),
+      money: firebase.firestore.FieldValue.increment(amountEuro),
     });
 
     await batch.commit();

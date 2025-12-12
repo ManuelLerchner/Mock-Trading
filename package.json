@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "start": "NODE_OPTIONS=--openssl-legacy-provider ng serve",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider ng build",
+    "watch": "NODE_OPTIONS=--openssl-legacy-provider ng build --watch --configuration development",
+    "test": "NODE_OPTIONS=--openssl-legacy-provider ng test"
   },
   "private": true,
   "dependencies": {
@@ -15,7 +15,7 @@
     "@angular/common": "~12.2.0",
     "@angular/compiler": "~12.2.0",
     "@angular/core": "~12.2.0",
-    "@angular/fire": "^7.2.1",
+    "@angular/fire": "^6.1.5",
     "@angular/forms": "~12.2.0",
     "@angular/material": "^12.2.13",
     "@angular/platform-browser": "~12.2.0",
@@ -26,17 +26,17 @@
     "@fortawesome/free-brands-svg-icons": "^7.1.0",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "firebase": "^9.4.0",
+    "firebase": "^8.10.1",
     "materialize-css": "^1.0.0",
     "node-fetch": "^3.2.2",
-    "rxfire": "^6.0.0",
-    "rxjs": "~7.8.2",
+    "rxfire": "^4.0.0",
+    "rxjs": "~6.6.7",
     "tslib": "^2.8.1",
     "zone.js": "~0.11.8"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.2.7",
-    "@angular/cli": "~21.0.3",
+    "@angular/cli": "~12.2.7",
     "@angular/compiler-cli": "~12.2.0",
     "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
@@ -45,7 +45,7 @@
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~4.0.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~4.3.5"
+    "karma-jasmine-html-reporter": "~1.7.0",
+    "typescript": "4.3.5"
   }
 }
