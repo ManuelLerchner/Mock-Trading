@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { User as FirebaseUser } from 'firebase/auth';
-import { FieldValue, serverTimestamp, deleteField } from 'firebase/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import { Transaction } from '../models/Transaction';
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { Transaction } from '../models/Transaction';
 export class DatabaseService {
   constructor(private db: AngularFirestore) {}
 
-  registerUser(user: FirebaseUser) {
+  registerUser(user: firebase.User) {
     this.db.collection('users').doc(user.uid).set(
       {
         name: user.displayName,
@@ -32,7 +32,7 @@ export class DatabaseService {
     this.initializeMoney(user);
   }
 
-  initializeMoney(user: FirebaseUser): void {
+  initializeMoney(user: firebase.User): void {
     let docRef = this.getCurrentProfile(user);
 
     docRef.get().then((doc) => {
@@ -54,21 +54,21 @@ export class DatabaseService {
     });
   }
 
-  deleteCurrency(user: FirebaseUser, symbol: string) {
+  deleteCurrency(user: firebase.User, symbol: string) {
     let userRef = this.db.collection('portfolios').doc(user.uid).ref;
     userRef.set(
       {
-        [symbol]: deleteField(),
+        [symbol]: firebase.firestore.FieldValue.delete(),
       },
       { merge: true }
     );
   }
 
-  getCurrentPortfolio(user: FirebaseUser) {
+  getCurrentPortfolio(user: firebase.User) {
     return this.db.collection('portfolios').doc(user.uid).ref;
   }
 
-  getCurrentProfile(user: FirebaseUser) {
+  getCurrentProfile(user: firebase.User) {
     return this.db.collection('profiles').doc(user.uid).ref;
   }
 

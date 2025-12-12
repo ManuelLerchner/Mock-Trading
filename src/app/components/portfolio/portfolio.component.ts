@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { animate, style, trigger, transition } from '@angular/animations';
 import { DatabaseService } from 'src/app/services/database.service';
-import { User as FirebaseUser } from 'firebase/auth';
+import firebase from 'firebase/app';
 import { PortfolioItem } from 'src/app/models/PortfolioItem';
 import { CurrencyTicker } from 'src/app/models/CurrencyTicker';
 import * as fa from '@fortawesome/free-solid-svg-icons';
@@ -53,11 +53,11 @@ export class PortfolioComponent implements OnInit {
     this.authService.auth.onAuthStateChanged((user) => {
       if (user) {
         let portRef = this.databaseService.getCurrentPortfolio(
-          user as FirebaseUser
+          user as firebase.User
         );
 
         let userRef = this.databaseService.getCurrentProfile(
-          user as FirebaseUser
+          user as firebase.User
         );
 
         userRef.get().then((snapshot: any) => {

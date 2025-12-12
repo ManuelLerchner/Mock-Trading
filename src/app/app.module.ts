@@ -5,9 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,9 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { AngularFireModule } from '@angular/fire/compat';
 import { registerLocaleData } from '@angular/common';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import localeUSA from '@angular/common/locales/en-US-POSIX';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -86,7 +84,9 @@ registerLocaleData(localeUSA);
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AngularFirestoreModule,
     MatFormFieldModule,
     MatInputModule,
     FontAwesomeModule,
@@ -97,12 +97,6 @@ registerLocaleData(localeUSA);
     MatDividerModule,
     MatSidenavModule,
     MatListModule,
-
-    AngularFireModule.initializeApp(environment.firebase),
-
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],
