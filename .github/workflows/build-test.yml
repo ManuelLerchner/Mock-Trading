@@ -29,6 +29,8 @@ jobs:
 
     - name: Build
       run: npm run build
+      env:
+        NODE_OPTIONS: --openssl-legacy-provider
 
     - name: Check if HTML output exists
       run: |
