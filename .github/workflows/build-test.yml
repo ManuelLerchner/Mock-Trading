@@ -1,0 +1,61 @@
+name: Build Test
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build
+      run: NODE_OPTION=--openssl-legacy-provider npm run build
+
+    - name: Check if HTML output exists
+      run: |
+        echo "Checking for build output..."
+        if [ -d "dist/Mock-Trading" ]; then
+          echo "✓ Build directory exists"
+          ls -la dist/Mock-Trading
+        else
+          echo "✗ Build directory not found"
+          exit 1
+        fi
+        
+        if [ -f "dist/Mock-Trading/index.html" ]; then
+          echo "✓ index.html exists"
+          echo "Content preview:"
+          head -n 10 dist/Mock-Trading/index.html
+        else
+          echo "✗ index.html not found"
+          exit 1
+        fi
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output
+        path: dist/Mock-Trading/
+        retention-days: 7
