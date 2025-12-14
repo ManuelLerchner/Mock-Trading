@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [24.x]
 
     steps:
     - name: Checkout repository
@@ -31,7 +31,7 @@ jobs:
       run: npm ci
 
     - name: Build
-      run: NODE_OPTIONS=--openssl-legacy-provider npm run build
+      run: NODE_OPTION^C--openssl-legacy-provider npm run build
 
     - name: Check if HTML output exists
       run: |
