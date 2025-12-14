@@ -31,7 +31,7 @@ jobs:
       run: npm ci
 
     - name: Build
-      run: NODE_OPTION^C--openssl-legacy-provider npm run build
+      run: NODE_OPTION=--openssl-legacy-provider npm run build
 
     - name: Check if HTML output exists
       run: |
