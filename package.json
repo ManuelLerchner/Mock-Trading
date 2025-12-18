@@ -26,7 +26,7 @@
     "@fortawesome/free-brands-svg-icons": "^7.1.0",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
-    "firebase": "^8.10.1",
+    "firebase": "^12.7.0",
     "materialize-css": "^1.0.0",
     "node-fetch": "^3.2.2",
     "rxfire": "^4.0.0",
